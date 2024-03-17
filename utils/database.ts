@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { logger } from "./helpers";
-import { log } from "console";
 
 let isConnected: boolean = false;
 
