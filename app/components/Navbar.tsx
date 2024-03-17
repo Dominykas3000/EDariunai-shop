@@ -12,7 +12,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import AuthButton from "@components/AuthButton";
 
-const currencies = ["CAD", "USD", "AUD", "EUR", "GBP"];
+const currencies = ["USD", "EUR", "GBP"];
 const navigation = {
   categories: [
     {
@@ -296,6 +296,10 @@ const Navbar = () => {
                   </div>
                 </div>
               </form>
+
+              <div className="text-white font-medium text-sm">
+                <span>Free shipping on orders over $100</span>
+              </div>
 
               <div className="flex items-center space-x-6">
                <AuthButton inSideMenu={true} />
