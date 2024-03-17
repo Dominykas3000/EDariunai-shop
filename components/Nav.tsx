@@ -8,11 +8,11 @@ const Nav = () => {
           <LiaShoppingBagSolid className="text-4xl" />
           <span className="font-semibold text-2xl">Edariunai</span>
         </div>
-        
-        <div className="block lg:hidden">
-            <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-zinc-800 hover:bg-white mt-4 lg:mt-0">Login</a>
-          </div>
-        
+
+        <div className="flex justify-center">
+          <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-zinc-800 hover:bg-white ">Login</a>
+        </div>
+
       </div>
     </nav>
 
