@@ -5,7 +5,7 @@ export default function Home() {
   connectToDatabase();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between py-24 lg:px-24 md:px-10 sm:px-6">
 
       <div className="flex flex-col items-center justify-center w-full h-full">
         <h1 className="text-3xl">Tai tik gariunai internetu</h1>
