@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { logger } from "./helpers";
+import { log } from "console";
 
 let isConnected: boolean = false;
 
@@ -9,19 +11,19 @@ export const connectToDatabase = async () => {
     return;
   }
 
-  console.log("using new connection");
+  logger.info("using new connection");
 
   try {
     const mongoUri: string = process.env.MONGODB_URI || "";
     await mongoose.connect(mongoUri, {
-      dbName: process.env.dbName,
+      dbName: process.env.DBNAME,
     });
 
     isConnected = true;
 
-    console.log("connected to database");
+    logger.info("connected to database");
   } catch (error) {
-    console.error("error connecting to database");
-    console.error(error);
+    logger.error("error connecting to database");
+    logger.error(error);
   }
 };
