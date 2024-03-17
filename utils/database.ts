@@ -4,13 +4,14 @@ import { logger } from "./helpers";
 let isConnected: boolean = false;
 
 export const connectToDatabase = async () => {
-  console.log("connecting to database");
+  logger.info("Attempting to connect to database...");
+
   if (isConnected) {
-    console.log("using existing connection");
+    logger.info("Using existing database connection.");
     return;
   }
 
-  logger.info("using new connection");
+  logger.info("Creating new database connection...");
 
   try {
     const mongoUri: string = process.env.MONGODB_URI || "";
@@ -20,9 +21,9 @@ export const connectToDatabase = async () => {
 
     isConnected = true;
 
-    logger.info("connected to database");
+    logger.info("Successfully connected to database.");
   } catch (error) {
-    logger.error("error connecting to database");
-    logger.error(error);
+    logger.error("Error while attempting to connect to database.");
+    logger.error(`Error details: ${error}`);
   }
 };
