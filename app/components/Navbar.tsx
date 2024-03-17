@@ -5,11 +5,12 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
-  QuestionMarkCircleIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
+import AuthButton from "@components/AuthButton";
 
 const currencies = ["CAD", "USD", "AUD", "EUR", "GBP"];
 const navigation = {
@@ -228,20 +229,7 @@ const Navbar = () => {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Sign Up
-                    </a>
-                  </div>
-                  <div className="flow-root">
-                    <a
-                      href="#"
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Login
-                    </a>
+                    <AuthButton inNav={true} />
                   </div>
                 </div>
 
@@ -310,18 +298,7 @@ const Navbar = () => {
               </form>
 
               <div className="flex items-center space-x-6">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-white hover:text-gray-100"
-                >
-                  Login
-                </a>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-white hover:text-gray-100"
-                >
-                  Sign Up
-                </a>
+               <AuthButton inSideMenu={true} />
               </div>
             </div>
           </div>
