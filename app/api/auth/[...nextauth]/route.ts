@@ -9,7 +9,7 @@ const authOptions = {
       clientSecret: process.env.GITHUB_SECRET || "",
     }),
     // ...add more providers here
-  ],
+  ]
 }
 
 const handler = NextAuth(authOptions);
