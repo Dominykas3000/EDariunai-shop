@@ -37,8 +37,20 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: any) {
-    console.log(values);
-
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   return (
