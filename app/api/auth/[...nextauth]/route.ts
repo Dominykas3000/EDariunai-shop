@@ -18,41 +18,41 @@ const handler = NextAuth({
     // ...add more providers here
   ],
 
-  secret: process.env.JWT_SECRET,
+  // secret: process.env.JWT_SECRET,
 
-  callbacks: {
-    async session({ session }: { session: any }) {
-      const sessionUser = await User.findOne({ email: session.user?.email });
-      if (sessionUser) {
-        session.user.id = sessionUser._id.toString() ?? "";
-      }
-      return session;
-    },
+  // callbacks: {
+  //   async session({ session }: { session: any }) {
+  //     const sessionUser = await User.findOne({ email: session.user?.email });
+  //     if (sessionUser) {
+  //       session.user.id = sessionUser._id.toString() ?? "";
+  //     }
+  //     return session;
+  //   },
+  //   // @ts-ignore
+  //   async signIn({ user, account }: { user: any; account: any }) {
+  //     if (account.provider == "google" || account.provider == "github") {
+  //       try {
+  //         await connectToDatabase();
+  //         const userExists = await User.findOne({ email: user.email });
 
-    async signIn({ user, account }: { user: any; account: any }) {
-      if (account.provider == "google" || account.provider == "github") {
-        try {
-          await connectToDatabase();
-          const userExists = await User.findOne({ email: user.email });
+  //         if (!userExists) {
+  //           await User.create({
+  //             email: user.email,
+  //             username: user.name.replace(" ", ""),
+  //             image: user.image,
+  //             isAdmin: false,
+  //             isSeller: false,
+  //           });
+  //         }
 
-          if (!userExists) {
-            await User.create({
-              email: user.email,
-              username: user.name.replace(" ", ""),
-              image: user.image,
-              isAdmin: false,
-              isSeller: false,
-            });
-          }
-
-          return true;
-        } catch (error) {
-          console.error(error);
-          return false;
-        }
-      }
-    },
-  },
+  //         return true;
+  //       } catch (error) {
+  //         console.error(error);
+  //         return false;
+  //       }
+  //     }
+  //   },
+  // },
 });
 
 export { handler as GET, handler as POST };

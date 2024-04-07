@@ -16,6 +16,11 @@
   }
 }
 
+button, a{
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,

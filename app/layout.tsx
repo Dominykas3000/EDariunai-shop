@@ -27,7 +27,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <Navbar />
-          {children}
+          <main className="flex min-h-[90dvh] flex-col items-center justify-between py-24 lg:px-24 md:px-10 sm:px-6">
+            {children}
+          </main>
           <Footer />
         </SessionProvider>
       </body>
