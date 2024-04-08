@@ -1,10 +1,10 @@
+'use client';
 import { useFormik } from 'formik';
-import { connectToDatabase } from "@/app/utils/database";
-
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
-  connectToDatabase()
-
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -28,7 +28,19 @@ const LoginForm = () => {
   });
 
   async function onSubmit(values: any) {
-    console.log(values);
+    const status = await signIn('credentials', {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+      callbackUrl: '/'
+    })
+
+    console.log(status)
+
+    if (status?.ok) {
+      console.log('Logged in successfully')
+      router.push('/')
+    }
 
   }
 

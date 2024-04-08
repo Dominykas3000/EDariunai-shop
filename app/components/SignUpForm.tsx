@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+
 
 const SignUpForm = () => {
-
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       username: '',
       email: '',
       password: '',
       cpassword: ''
-    }, 
+    },
     validate: (values) => {
       const errors: any = {};
       if (!values.username) {
@@ -37,7 +39,23 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: any) {
-    console.log(values);
+
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('Signed up successfully');
+      router.push('/login');
+    } else {
+      console.log(data.error);
+    }
 
   }
 
