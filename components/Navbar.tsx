@@ -10,7 +10,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import AuthButton from "@components/AuthButton";
+import AuthButton from "@/components/AuthButton";
+import { ModeToggle } from "@/components/mode-toggle"
 
 const currencies = ["USD", "EUR", "GBP"];
 const navigation = {
@@ -452,6 +453,8 @@ const Navbar = () => {
                   </a>
 
                   <div className="flex flex-1 items-center justify-end">
+                  <ModeToggle />
+
                     <div className="flex items-center lg:ml-8">
                       {/* Cart */}
                       <div className="ml-4 flow-root lg:ml-8">
