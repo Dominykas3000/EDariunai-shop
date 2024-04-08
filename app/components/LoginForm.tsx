@@ -1,10 +1,7 @@
+import { signIn } from "next-auth/react";
 import { useFormik } from 'formik';
-import { connectToDatabase } from "@/app/utils/database";
-
 
 const LoginForm = () => {
-  connectToDatabase()
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -28,7 +25,12 @@ const LoginForm = () => {
   });
 
   async function onSubmit(values: any) {
-    console.log(values);
+    console.log("onlogin", values);
+    await signIn("Credentials", {
+      email: values.email,
+      password: values.password,
+    });
+    console.log("onlogin2", values);
 
   }
 

@@ -10,14 +10,10 @@ const UserSchema = new Schema({
       "Username invalid, it should contain 5-20 alphanumeric letters and be unique!",
     ],
   },
-  //  password: {
-  //    type: String,
-  //    required: [true, "Password is required!"],
-  //    match: [
-  //      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-  //      "Password invalid, it should contain at least 8 characters, one uppercase letter, one lowercase letter and one number!",
-  //    ],
-  //  },
+  password: {
+    type: String,
+    required: [true, "Password is required"],
+  },
   email: {
     type: String,
     unique: [true, "Email already exists!"],

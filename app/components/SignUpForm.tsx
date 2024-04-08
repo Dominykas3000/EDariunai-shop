@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { signIn } from 'next-auth/react';
 
 const SignUpForm = () => {
 
@@ -37,20 +38,22 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: any) {
-    fetch('/api/auth/signup', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(values)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      if (response.ok) {
+        console.log("onSubmit", values);
+        await signIn("Credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: true,
+          callbackUrl: "/",
+        })
+      }
   }
 
   return (
