@@ -9,11 +9,11 @@ const AuthorizationPage = () => {
   const [isNewUser, setIsNewUser] = useState(false);
 
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackURL: "http://localhost:3000" });
+    signIn("google", { callbackUrl: '/' });
   }
 
   const handleGithubSignIn = () => {
-    signIn("github", { callbackURL: "http://localhost:3000" });
+    signIn("github", { callbackUrl: '/' });
   }
 
   let googleButton = (

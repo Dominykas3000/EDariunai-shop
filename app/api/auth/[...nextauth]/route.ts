@@ -18,41 +18,44 @@ const handler = NextAuth({
     // ...add more providers here
   ],
 
-  // secret: process.env.JWT_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 
-  // callbacks: {
-  //   async session({ session }: { session: any }) {
-  //     const sessionUser = await User.findOne({ email: session.user?.email });
-  //     if (sessionUser) {
-  //       session.user.id = sessionUser._id.toString() ?? "";
-  //     }
-  //     return session;
-  //   },
-  //   // @ts-ignore
-  //   async signIn({ user, account }: { user: any; account: any }) {
-  //     if (account.provider == "google" || account.provider == "github") {
-  //       try {
-  //         await connectToDatabase();
-  //         const userExists = await User.findOne({ email: user.email });
+  callbacks: {
+    async session({ session }: { session: any }) {
+      const sessionUser = await User.findOne({ email: session.user?.email });
+      if (sessionUser) {
+        session.user.id = sessionUser._id.toString() ?? "";
+      }
+      return session;
+    },
+    async signIn({ user, account }: { user: any; account: any }) {
+      if (account.provider == "google" || account.provider == "github") {
+        try {
+          await connectToDatabase();
+          const userExists = await User.findOne({ email: user.email });
+          
+          if (!userExists) {
+            await User.create({
+              email: user.email,
+              username: user.name.replace(" ", "").replace(".", ""), // cia biski approacho kito reikia
+              image: user.image,
+              isAdmin: false,
+              isSeller: false,
+            });
+          }
 
-  //         if (!userExists) {
-  //           await User.create({
-  //             email: user.email,
-  //             username: user.name.replace(" ", ""),
-  //             image: user.image,
-  //             isAdmin: false,
-  //             isSeller: false,
-  //           });
-  //         }
-
-  //         return true;
-  //       } catch (error) {
-  //         console.error(error);
-  //         return false;
-  //       }
-  //     }
-  //   },
-  // },
+          return user; // return user
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+      }
+      return false; // if neither google nor github (neither credentials in the future)
+    }
+  },
+  pages: {
+    signIn: "/authorization",
+  },
 });
 
 export { handler as GET, handler as POST };
