@@ -4,23 +4,23 @@ import { HiPencilAlt } from "react-icons/hi";
 import Item from "@/models/item";
 
 const getItems = async () => {
-  try {
-    fetch(`http://localhost:3000/api/item`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.log("--------------------------------------------------------------------")
-        return data;
+    try {
+      const response = await fetch(`http://localhost:3000/api/item`, {
+        method: "GET",
       });
-  } catch (error) {
-    console.error(error);
-  }
-};
+      const data = await response.json();
+    //   console.log(data.message.items)
+    //   console.log("-----------------------------")
+      return data.message.items; 
+    } catch (error) {
+      console.error(error);
+      return []; 
+    }
+  };
 
 export default async function ItemsList() {
   const items = await getItems();
+  console.log(items);
 
   return (
     <div>
@@ -28,7 +28,6 @@ export default async function ItemsList() {
         <div className="p-4 border border-slate-300 my-3 flex justify-between gap-5">
           <div>
             <h2 className="font-bolt text-2xl">{item.name}</h2>
-            // @ts-ignore
             <div>{item.price}</div>
             <div>{item.description}</div>
           </div>
