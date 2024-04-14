@@ -1,0 +1,118 @@
+[
+    {
+      "name": "Virtual Reality Headset",
+      "price": 299.99,
+      "description": "Immersive VR experience with high resolution and ergonomic design for extended gameplay.",
+      "tags": ["tech", "gadget", "VR", "gaming"],
+      "stock": 150,
+      "image": "vr_headset.png",
+      "category": "Electronics",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b1",
+      "salePrice": 279.99,
+      "saleStartDate": "2023-11-01",
+      "saleEndDate": "2023-12-01",
+      "saleActive": true
+    },
+    {
+      "name": "Waterproof Bluetooth Speaker",
+      "price": 129.99,
+      "description": "Portable and durable outdoor speaker with exceptional sound quality and waterproof design.",
+      "tags": ["audio", "music", "waterproof", "bluetooth"],
+      "stock": 200,
+      "image": "bluetooth_speaker.png",
+      "category": "Audio",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b1",
+      "salePrice": 99.99,
+      "saleStartDate": "2023-10-20",
+      "saleEndDate": "2023-11-20",
+      "saleActive": true
+    },
+    {
+      "name": "Ergonomic Wireless Mouse",
+      "price": 49.99,
+      "description": "Comfortable, precision-based mouse designed to reduce wrist strain during prolonged use.",
+      "tags": ["computers", "ergonomic", "peripheral", "wireless"],
+      "stock": 300,
+      "image": "wireless_mouse.png",
+      "category": "Computer Accessories",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b1",
+      "saleActive": false
+    },
+    {
+      "name": "Professional Yoga Mat",
+      "price": 59.99,
+      "description": "High-performance yoga mat providing excellent grip and balance, ideal for all types of yoga.",
+      "tags": ["fitness", "yoga", "exercise", "mat"],
+      "stock": 120,
+      "image": "yoga_mat.png",
+      "category": "Fitness",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b4",
+      "saleActive": false
+    },
+    {
+      "name": "Organic Green Tea Leaves",
+      "price": 20.99,
+      "description": "Antioxidant-rich green tea, harvested at peak freshness to preserve flavor and health benefits.",
+      "tags": ["food", "beverage", "tea", "organic"],
+      "stock": 200,
+      "image": "green_tea.png",
+      "category": "Grocery",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b5",
+      "saleActive": false
+    },
+    {
+      "name": "LED Desk Lamp",
+      "price": 39.99,
+      "description": "Stylish desk lamp with adjustable brightness and color settings, perfect for work or reading.",
+      "tags": ["lighting", "desk", "LED", "home"],
+      "stock": 150,
+      "image": "desk_lamp.png",
+      "category": "Home",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b1",
+      "saleActive": false
+    },
+    {
+      "name": "Classic Novel Collection",
+      "price": 75.00,
+      "description": "A beautifully packaged set of timeless novels that every book lover should own.",
+      "tags": ["books", "literature", "novels", "classic"],
+      "stock": 100,
+      "image": "classic_books.png",
+      "category": "Books",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b2",
+      "saleActive": false
+    },
+    {
+      "name": "Compact Camping Tent",
+      "price": 199.99,
+      "description": "Lightweight and easy to set up camping tent that comfortably fits 2 people, ideal for weekend getaways.",
+      "tags": ["camping", "outdoor", "tent", "travel"],
+      "stock": 80,
+      "image": "camping_tent.png",
+      "category": "Outdoor",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b4",
+      "saleActive": false
+    },
+    {
+      "name": "Stainless Steel Water Bottle",
+      "price": 24.99,
+      "description": "Eco-friendly, insulated water bottle designed to keep drinks cold for up to 24 hours and hot for 12.",
+      "tags": ["bottle", "stainless steel", "eco-friendly", "water"],
+      "stock": 200,
+      "image": "water_bottle.png",
+      "category": "Lifestyle",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b4",
+      "saleActive": false
+    },
+    {
+      "name": "Multi-tool Pocket Knife",
+      "price": 45.99,
+      "description": "Versatile, durable pocket knife featuring multiple tools for everyday use and outdoor adventures.",
+      "tags": ["tools", "knife", "survival", "outdoor"],
+      "stock": 90,
+      "image": "pocket_knife.png",
+      "category": "Tools",
+      "sellerId": "62bf6ecf2c8a8c8d15la09b4",
+      "saleActive": false
+    }
+  ]
