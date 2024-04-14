@@ -27,7 +27,7 @@ const handler = NextAuth({
         connectToDatabase();
         const user = await User.findOne({ email: credentials.email });
         if (!user) {
-          return null;
+          throw new Error("User not found!");
         }
         const checkPassword = await compare(
           credentials.password,
