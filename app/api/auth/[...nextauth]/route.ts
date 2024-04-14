@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDatabase } from "@/app/utils/database";
+import { connectToDatabase } from "@/utils/database";
 import { compare } from "bcryptjs";
 import User from "@/models/user";
 
