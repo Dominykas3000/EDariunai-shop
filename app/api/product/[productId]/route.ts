@@ -1,12 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 
+
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { productId: string } }
+  req: NextRequest, { params }: { params: { itemId: string } }
 ) {
-  console.log("sellerId", params.productId);
+  
   return NextResponse.json({
     status: true,
-    message: `Return product: ${params.productId} route`,
+    message: `Return product: ${params.itemId} route`,
+  });
+}
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { itemId: string } }
+) {
+  const data = await request.json();
+  console.log("data", data);
+
+  return NextResponse.json({
+    status: true,
+    message: `Create product: ${params.itemId} route`,
+  });
+}
+
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { itemId: string } }
+) {
+  return NextResponse.json({
+    status: true,
+    message: `Update product: ${params.itemId} route`,
+  });
+}
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { itemId: string } }
+) {
+  return NextResponse.json({
+    status: true,
+    message: `Delete product: ${params.itemId} route`,
   });
 }
