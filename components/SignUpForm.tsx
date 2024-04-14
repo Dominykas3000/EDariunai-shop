@@ -55,14 +55,13 @@ const SignUpForm = () => {
 
     if (response.ok) {
       console.log('Signed up successfully');
-      router.push('/login');
+      router.push('/authorization');
     } else {
-      console.log(data.error);
       return setErrorMessage(data.error);
     }
   }
 
-  console.log(errorMessage);
+  console.log("erroras",errorMessage);
   return (
     <form
       className="space-y-6"

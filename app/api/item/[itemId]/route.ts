@@ -3,14 +3,13 @@ import Item from "@/models/item";
 import { connectToDatabase } from "@/utils/database";
 
 export async function GET(
-  req: NextRequest, { params }: { params: { itemId: string } }
+  req: NextRequest,
+  { params }: { params: { itemId: string } }
 ) {
-  await connectToDatabase();
-  const items = await Item.findById(params.itemId);
 
   return NextResponse.json({
     status: true,
-    message: items,
+    message: "nonono",
   });
 }
 
@@ -18,7 +17,20 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { itemId: string } }
 ) {
-  const { newName: name, newPrice: price, newDescription: description, newTags: tags, newStock: stock, image, salePrice, saleStartDate, saleEndDate, saleActive, newCategory: category, sellerId} = await req.json();
+  const {
+    newName: name,
+    newPrice: price,
+    newDescription: description,
+    newTags: tags,
+    newStock: stock,
+    image,
+    salePrice,
+    saleStartDate,
+    saleEndDate,
+    saleActive,
+    newCategory: category,
+    sellerId,
+  } = await req.json();
   await connectToDatabase();
 
   // TODO: Implement saleActive logic
@@ -39,7 +51,7 @@ export async function PUT(
     saleActive,
     category,
     sellerId,
-  })
+  });
 
   return NextResponse.json({
     status: true,
