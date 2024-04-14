@@ -3,7 +3,7 @@ export default function ProductPage({
 }: {
   params: { itemId: string; sellerId: string };
 }) {
-  fetch(`http://localhost:3000/api/product/${params.itemId}`, {
+  fetch(`http://localhost:3000/api/item/${params.itemId}`, {
     method: "GET",
   })
     .then((response) => response.json())
@@ -13,7 +13,7 @@ export default function ProductPage({
 
   return (
     <div>
-      This is prodsuct: <span className="text-red-500 ">{params.sellerId}</span>{" "}
+      This is item: <span className="text-red-500 ">{params.sellerId}</span>{" "}
       of seller: <span className="text-red-500 ">{params.itemId}</span>{" "}
     </div>
   );

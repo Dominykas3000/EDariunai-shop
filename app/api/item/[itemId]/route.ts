@@ -14,8 +14,6 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { itemId: string } }
 ) {
-  const data = await request.json();
-  console.log("data", data);
 
   return NextResponse.json({
     status: true,
