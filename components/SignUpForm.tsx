@@ -1,8 +1,10 @@
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
-
+import { useState } from 'react';
+import { SlClose } from "react-icons/sl";
 
 const SignUpForm = () => {
+  const [errorMessage, setErrorMessage] = useState(undefined);
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -38,6 +40,7 @@ const SignUpForm = () => {
     onSubmit: onSubmit
   });
 
+
   async function onSubmit(values: any) {
 
     const response = await fetch('/api/auth/signup', {
@@ -55,10 +58,11 @@ const SignUpForm = () => {
       router.push('/login');
     } else {
       console.log(data.error);
+      return setErrorMessage(data.error);
     }
-
   }
 
+  console.log(errorMessage);
   return (
     <form
       className="space-y-6"
@@ -73,6 +77,7 @@ const SignUpForm = () => {
         </label>
         <input type="text"
           id="username"
+          autoComplete='off'
           placeholder="User123"
           required
           {...formik.getFieldProps('username')}
@@ -95,7 +100,8 @@ const SignUpForm = () => {
         <input
           type="email"
           id="email"
-          placeholder="name@company.com"
+          placeholder="example@email.com"
+          autoComplete='email'
           required
           {...formik.getFieldProps('email')}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
@@ -117,6 +123,7 @@ const SignUpForm = () => {
         <input type="password"
           id="password"
           placeholder="••••••••"
+          autoComplete='off'
           required
           {...formik.getFieldProps('password')}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
@@ -138,6 +145,7 @@ const SignUpForm = () => {
         <input type="password"
           id="cpassword"
           placeholder="••••••••"
+          autoComplete='off'
           required
           {...formik.getFieldProps('cpassword')}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
@@ -150,10 +158,20 @@ const SignUpForm = () => {
         }
       </div>
 
+      {
+        errorMessage ?
+            <div className='text-red-500 text-m flex items-center gap-2'>
+              <SlClose />
+              {errorMessage}
+            </div>
+          :
+            null
+      }
+
       <button
         type="submit"
-        className="w-full text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-        Sign-up!
+        className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        Sign-up
       </button>
 
     </form>

@@ -17,11 +17,9 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
-    // ...add more providers here
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
@@ -35,13 +33,11 @@ const handler = NextAuth({
           credentials.password,
           user.password,
         );
-        
+
         if (!checkPassword || user.email !== credentials.email) {
-          console.warn("Invalid credentials");
-          throw new Error("Invalid credentials");
+          throw new Error("Invalid email or password!");
         }
-        
-        console.log("credentials: ", credentials);
+
         return user;
       },
     }),
@@ -56,7 +52,6 @@ const handler = NextAuth({
         session.user.isSeller = sessionUser.isSeller ?? false;
         session.user.image = sessionUser.image ?? "";
       }
-      console.log("session : ", session);
       return session;
     },
     async signIn({ user, account }: { user: any; account: any }) {
@@ -81,7 +76,10 @@ const handler = NextAuth({
           return false;
         }
       }
-      return true; 
+      else if (account.provider == "credentials") {
+        return true;
+      }
+      return false;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
