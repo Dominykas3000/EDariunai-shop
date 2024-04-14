@@ -56,20 +56,13 @@ const AuthorizationPage = () => {
       </h2>
 
       <div className="w-full max-w-[560px] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 " >
-
-        {
-          isNewUser ?
-            <SignUpForm />
-            :
-            <LoginForm />
-        }
-
+        {isNewUser ? <SignUpForm /> : <LoginForm />}
         <div className="pt-[12px] text-m font-medium text-gray-500 dark:text-gray-300">
-          Not registered? {" "}
+          {isNewUser ? "Already have an account? " : "Don't have an account? "}
           <a
             onClick={() => setIsNewUser(!isNewUser)}
             className="text-gray-800 hover:underline dark:text-gray-900">
-            Create account!
+            {isNewUser ? "Log in! " : "Create one !"}
           </a>
         </div>
 
