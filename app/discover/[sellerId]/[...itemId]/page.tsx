@@ -8,7 +8,7 @@ export default function ProductPage({
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      console.log("data", data);
     });
 
   return (

@@ -4,33 +4,34 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import AuthButton from "@/components/AuthButton";
+
+import Image from "next/image";
 import { ModeToggle } from "@/components/mode-toggle"
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-const currencies = ["USD", "EUR", "GBP"];
+
 const navigation = {
   categories: [
     {
-      name: "Women",
+      name: "Categories",
       featured: [
         {
-          name: "New Arrivals",
+          name: "Trending",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
+            "https://images.unsplash.com/photo-1712877209367-49578fa711c9?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           imageAlt:
             "Models sitting back to back, wearing Basic Tee in black and bone.",
         },
         {
-          name: "Basic Tees",
+          name: "Clothing",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
@@ -46,7 +47,7 @@ const navigation = {
             "Model wearing minimalist watch with black wristband and white watch face.",
         },
         {
-          name: "Carry",
+          name: "Eco-Friendly",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-category-04.jpg",
@@ -56,36 +57,36 @@ const navigation = {
       ],
     },
     {
-      name: "Men",
+      name: "Popular Shops",
       featured: [
         {
-          name: "New Arrivals",
+          name: "Zieniaus Shop",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-01.jpg",
+            "https://sometimeshome.com/wp-content/uploads/2018/09/sometimes_home-best_food_markets_halls-yerevan_armenia_0001.jpg",
           imageAlt:
             "Hats and sweaters on wood shelves next to various colors of t-shirts on hangers.",
         },
         {
-          name: "Basic Tees",
+          name: "Pas Staska",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-02.jpg",
+            "https://www.getaway.co.za/wp-content/uploads/2023/08/pexels-ali-alcantara-16817341-jpg.webp",
           imageAlt: "Model wearing light heather gray t-shirt.",
         },
         {
-          name: "Accessories",
+          name: "Marceles kojines",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-03.jpg",
+            "https://c8.alamy.com/comp/BGD61W/market-stall-holders-roma-people-in-ploiesti-romania-eastern-europe-BGD61W.jpg",
           imageAlt:
             "Grey 6-panel baseball hat with black brim, black mountain graphic on front, and light heather gray body.",
         },
         {
-          name: "Carry",
+          name: "MB Vatnikai ",
           href: "#",
           imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-01-men-category-04.jpg",
+            "https://www.lrt.lt/img/2022/06/01/1273514-141901-1287x836.jpg",
           imageAlt:
             "Model putting folded cash into slim card holder olive leather wallet with hand stitching.",
         },
@@ -195,7 +196,7 @@ const Navbar = () => {
                               selected
                                 ? "border-indigo-600 text-indigo-600"
                                 : "border-transparent text-gray-900",
-                              "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
+                              "flex-1 whitespace-nowrap w-60 h-60 border-b-2 px-1 py-4 text-base font-medium"
                             )
                           }
                         >
@@ -213,12 +214,12 @@ const Navbar = () => {
                         <div className="grid grid-cols-2 gap-x-4 gap-y-10">
                           {category.featured.map((item) => (
                             <div key={item.name} className="group relative">
-                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
-                                <img
+                              <div className="aspect-h-1 aspect-w-1 overflow-hidden w-32 h-32 rounded-md bg-gray-100 group-hover:opacity-75">
+                                 <img
                                   src={item.imageSrc}
                                   alt={item.imageAlt}
-                                  className="object-cover object-center"
-                                />
+                                  className="object-cover object-center w-32 h-32"
+                                /> 
                               </div>
                               <a
                                 href={item.href}
@@ -263,34 +264,6 @@ const Navbar = () => {
                     {sellerRedirect}
                   </div>
                 </div>
-
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {/* Currency selector */}
-                  <form>
-                    <div className="inline-block">
-                      <label htmlFor="mobile-currency" className="sr-only">
-                        Currency
-                      </label>
-                      <div className="group relative -ml-2 rounded-md border-transparent focus-within:ring-2 focus-within:ring-white">
-                        <select
-                          id="mobile-currency"
-                          name="currency"
-                          className="flex items-center rounded-md border-transparent bg-none py-0.5 pl-2 pr-5 text-sm font-medium text-gray-700 focus:border-transparent focus:outline-none focus:ring-0 group-hover:text-gray-800"
-                        >
-                          {currencies.map((currency) => (
-                            <option key={currency}>{currency}</option>
-                          ))}
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
-                          <ChevronDownIcon
-                            className="h-5 w-5 text-gray-500"
-                            aria-hidden="true"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -308,7 +281,6 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-
           {/* Secondary navigation */}
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -371,11 +343,11 @@ const Navbar = () => {
                                               key={item.name}
                                               className="group relative"
                                             >
-                                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-100 group-hover:opacity-75">
+                                              <div className="aspect-h-1 aspect-w-1 overflow-hidden w-60 h-60 rounded-md bg-gray-100 group-hover:opacity-75">
                                                 <img
                                                   src={item.imageSrc}
                                                   alt={item.imageAlt}
-                                                  className="object-cover object-center"
+                                                  className="object-cover object-center w-60 h-60"
                                                 />
                                               </div>
                                               <a
@@ -429,18 +401,6 @@ const Navbar = () => {
                       <span className="sr-only">Open menu</span>
                       <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                     </button>
-
-                    {/* Search */}
-                    <a
-                      href="#"
-                      className="ml-2 p-2 text-gray-400 hover:text-gray-500"
-                    >
-                      <span className="sr-only">Search</span>
-                      <MagnifyingGlassIcon
-                        className="h-6 w-6"
-                        aria-hidden="true"
-                      />
-                    </a>
                   </div>
 
                   {/* Logo (lg-) */}
@@ -453,7 +413,12 @@ const Navbar = () => {
                     />
                   </a>
 
+
+                  <div className="flex flex-1 gap-3 items-center justify-end">
+                    <AuthButton inSideMenu={true} />
+
                   <div className="flex flex-1 items-center justify-end">
+
                     <ModeToggle />
 
                     <div className="flex items-center lg:ml-8">
