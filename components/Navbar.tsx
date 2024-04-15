@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -10,8 +10,12 @@ import {
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import AuthButton from "@/components/AuthButton";
-import { ModeToggle } from "@/components/mode-toggle";
+
 import Image from "next/image";
+import { ModeToggle } from "@/components/mode-toggle"
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+
 
 const navigation = {
   categories: [
@@ -101,18 +105,45 @@ function classNames(...classes: any) {
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
   //TODO move authentication and seller check to somewhere else maybe?
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
   const authCheck = () => {
-    //TODO check if user is authenticated
-    SetIsAuthenticated(false);
+    if (session)
+      SetIsAuthenticated(true);
+    else
+      SetIsAuthenticated(false);
   };
+
+
   const sellerCheck = () => {
-    //TODO check if user is seller
-    setIsSeller(false);
+    //@ts-ignore
+    let isSellerRole = session?.user?.role == "seller";
+
+
+    if (isSellerRole)
+      setIsSeller(true);
+    else if (!isSellerRole)
+      setIsSeller(false);
+    
   };
+
+  useEffect(() => {
+    authCheck();
+    sellerCheck();
+  }, []);
+
+  let sellerRedirect = ! isSeller && isAuthenticated ?
+    (
+      <Link href="/seller-form">
+        <span className="-m-2 block p-2 font-medium text-gray-100 ">
+          Become a Seller
+        </span>
+      </Link>
+    )
+    : ''
 
   return (
     <div className="bg-white">
@@ -230,6 +261,7 @@ const Navbar = () => {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <AuthButton inNav={true} />
+                    {sellerRedirect}
                   </div>
                 </div>
               </Dialog.Panel>
@@ -240,6 +272,15 @@ const Navbar = () => {
 
       <header className="relative">
         <nav aria-label="Top">
+          {/* Top navigation */}
+          <div className="bg-gray-900">
+            <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center space-x-6">
+                <AuthButton inSideMenu={true} />
+                {sellerRedirect}
+              </div>
+            </div>
+          </div>
           {/* Secondary navigation */}
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -372,8 +413,12 @@ const Navbar = () => {
                     />
                   </a>
 
+
                   <div className="flex flex-1 gap-3 items-center justify-end">
                     <AuthButton inSideMenu={true} />
+
+                  <div className="flex flex-1 items-center justify-end">
+
                     <ModeToggle />
 
                     <div className="flex items-center lg:ml-8">
