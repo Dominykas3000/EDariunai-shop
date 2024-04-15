@@ -7,7 +7,6 @@ export default function Home() {
 
   const [providers, setProviders] = useState<any | null>(null);
   const { data: session } = useSession();
-  console.log(session)
 
   useEffect(() => {
     const setUpProviders = async () => {

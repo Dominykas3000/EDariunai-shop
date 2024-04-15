@@ -10,9 +10,9 @@ const AuthButton = ({ inNav = false, inSideMenu = false }: AuthButtonProps) => {
 
   let conditionalStyle = "";
   if (inNav) {
-    conditionalStyle = "-m-2 block p-2 font-medium text-gray-900";
+    conditionalStyle = "-m-2 block p-2 font-medium text-red-900";
   } else if (inSideMenu) {
-    conditionalStyle = "text-sm font-medium text-white hover:text-gray-100";
+    conditionalStyle = "text-sm font-medium text-red-500 hover:text-red-800";
   }
 
   // Combine baseStyle with conditionalStyle
