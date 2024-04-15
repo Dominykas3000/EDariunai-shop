@@ -12,10 +12,10 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import AuthButton from "@/components/AuthButton";
 
 import Image from "next/image";
-import { ModeToggle } from "@/components/mode-toggle"
+import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-
+import { Button } from "./ui/button";
 
 const navigation = {
   categories: [
@@ -110,17 +110,16 @@ const Navbar = () => {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
-  const authCheck = () => {
-    if (session)
-      SetIsAuthenticated(true);
-    else
-      SetIsAuthenticated(false);
-  };
+  useEffect(() => {
+    const authCheck = () => {
+      if (session) SetIsAuthenticated(true);
+      else SetIsAuthenticated(false);
+    };
 
-
-  const sellerCheck = () => {
-    //@ts-ignore
-    let isSellerRole = session?.user?.role == "seller";
+    const sellerCheck = () => {
+      console.log("sessionas", session);
+      //@ts-ignore
+      let isSellerRole = session?.user?.role == "seller";
 
 
     if (isSellerRole)
@@ -130,10 +129,10 @@ const Navbar = () => {
 
   };
 
-  useEffect(() => {
     authCheck();
     sellerCheck();
-  }, []);
+  }, [session]);
+
 
   let sellerRedirect = !isSeller && isAuthenticated ?
     (
@@ -142,8 +141,9 @@ const Navbar = () => {
           Become a Seller
         </span>
       </Link>
-    )
-    : ''
+    ) : (
+      ""
+    );
 
   return (
     <div className="bg-white">
@@ -278,6 +278,11 @@ const Navbar = () => {
               <div className="flex items-center space-x-6">
                 <AuthButton inSideMenu={true} />
                 {sellerRedirect}
+                {isSeller ? (
+                  <Button>
+                    <Link href="/dashboard">Seller Dashboard</Link>
+                  </Button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -413,14 +418,11 @@ const Navbar = () => {
                     />
                   </a>
 
-
                   <div className="flex flex-1 gap-3 items-center justify-end">
                     <AuthButton inSideMenu={true} />
 
                     <div className="flex flex-1 items-center justify-end">
-
                       <ModeToggle />
-
                       <div className="flex items-center lg:ml-8">
                         {/* Cart */}
                         <div className="ml-4 flow-root lg:ml-8">
