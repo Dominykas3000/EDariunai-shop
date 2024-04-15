@@ -27,7 +27,7 @@ const handler = NextAuth({
         connectToDatabase();
         const user = await User.findOne({ email: credentials.email });
         if (!user) {
-          return null;
+          throw new Error("User not found!");
         }
         const checkPassword = await compare(
           credentials.password,
@@ -48,8 +48,8 @@ const handler = NextAuth({
       if (sessionUser) {
         session.user.id = sessionUser._id.toString() ?? "";
         session.user.name = sessionUser.username ?? "";
-        session.user.isAdmin = sessionUser.isAdmin ?? false;
-        session.user.isSeller = sessionUser.isSeller ?? false;
+        session.user.privileges = sessionUser.privileges ?? "user";
+        session.user.role = sessionUser.role ?? "buyer";
         session.user.image = sessionUser.image ?? "";
       }
       return session;
@@ -65,8 +65,8 @@ const handler = NextAuth({
               email: user.email,
               username: user.name.replace(" ", "").replace(".", ""),
               image: user.image,
-              isAdmin: false,
-              isSeller: false,
+              privileges: "user",
+              role: "buyer",
             });
           }
 
@@ -75,8 +75,7 @@ const handler = NextAuth({
           console.error(error);
           return false;
         }
-      }
-      else if (account.provider == "credentials") {
+      } else if (account.provider == "credentials") {
         return true;
       }
       return false;
