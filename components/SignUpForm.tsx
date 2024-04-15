@@ -27,7 +27,7 @@ const SignUpForm = () => {
       }
       if (!values.password) {
         errors.password = 'Required';
-      } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(values.password)) {
+      } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.password)) {
         errors.password = 'Invalid password, it should contain at least 8 characters, one uppercase letter, one lowercase letter and one number!';
       }
       if (!values.cpassword) {
@@ -61,7 +61,6 @@ const SignUpForm = () => {
     }
   }
 
-  console.log(errorMessage);
   return (
     <form
       className="space-y-6"
