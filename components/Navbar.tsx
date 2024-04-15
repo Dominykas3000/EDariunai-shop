@@ -12,10 +12,10 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import AuthButton from "@/components/AuthButton";
 
 import Image from "next/image";
-import { ModeToggle } from "@/components/mode-toggle"
+import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-
+import { Button } from "./ui/button";
 
 const navigation = {
   categories: [
@@ -110,40 +110,35 @@ const Navbar = () => {
   const [isAuthenticated, SetIsAuthenticated] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
-  const authCheck = () => {
-    if (session)
-      SetIsAuthenticated(true);
-    else
-      SetIsAuthenticated(false);
-  };
-
-
-  const sellerCheck = () => {
-    //@ts-ignore
-    let isSellerRole = session?.user?.role == "seller";
-
-
-    if (isSellerRole)
-      setIsSeller(true);
-    else if (!isSellerRole)
-      setIsSeller(false);
-    
-  };
-
   useEffect(() => {
+    const authCheck = () => {
+      if (session) SetIsAuthenticated(true);
+      else SetIsAuthenticated(false);
+    };
+
+    const sellerCheck = () => {
+      console.log("sessionas", session);
+      //@ts-ignore
+      let isSellerRole = session?.user?.role == "seller";
+
+      if (isSellerRole) setIsSeller(true);
+      else if (!isSellerRole) setIsSeller(false);
+    };
+
     authCheck();
     sellerCheck();
-  }, []);
+  }, [session]);
 
-  let sellerRedirect = ! isSeller && isAuthenticated ?
-    (
+  let sellerRedirect =
+    !isSeller && isAuthenticated ? (
       <Link href="/seller-form">
         <span className="-m-2 block p-2 font-medium text-gray-100 ">
           Become a Seller
         </span>
       </Link>
-    )
-    : ''
+    ) : (
+      ""
+    );
 
   return (
     <div className="bg-white">
@@ -215,11 +210,11 @@ const Navbar = () => {
                           {category.featured.map((item) => (
                             <div key={item.name} className="group relative">
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden w-32 h-32 rounded-md bg-gray-100 group-hover:opacity-75">
-                                 <img
+                                <img
                                   src={item.imageSrc}
                                   alt={item.imageAlt}
                                   className="object-cover object-center w-32 h-32"
-                                /> 
+                                />
                               </div>
                               <a
                                 href={item.href}
@@ -278,6 +273,11 @@ const Navbar = () => {
               <div className="flex items-center space-x-6">
                 <AuthButton inSideMenu={true} />
                 {sellerRedirect}
+                {isSeller ? (
+                  <Button>
+                    <Link href="/dashboard">Seller Dashboard</Link>
+                  </Button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -413,32 +413,31 @@ const Navbar = () => {
                     />
                   </a>
 
-
                   <div className="flex flex-1 gap-3 items-center justify-end">
                     <AuthButton inSideMenu={true} />
 
-                  <div className="flex flex-1 items-center justify-end">
+                    <div className="flex flex-1 items-center justify-end">
+                      <ModeToggle />
 
-                    <ModeToggle />
-
-                    <div className="flex items-center lg:ml-8">
-                      {/* Cart */}
-                      <div className="ml-4 flow-root lg:ml-8">
-                        <a
-                          href="#"
-                          className="group -m-2 flex items-center p-2"
-                        >
-                          <ShoppingBagIcon
-                            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                            aria-hidden="true"
-                          />
-                          <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                            0
-                          </span>
-                          <span className="sr-only">
-                            items in cart, view bag
-                          </span>
-                        </a>
+                      <div className="flex items-center lg:ml-8">
+                        {/* Cart */}
+                        <div className="ml-4 flow-root lg:ml-8">
+                          <a
+                            href="#"
+                            className="group -m-2 flex items-center p-2"
+                          >
+                            <ShoppingBagIcon
+                              className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                              aria-hidden="true"
+                            />
+                            <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                              0
+                            </span>
+                            <span className="sr-only">
+                              items in cart, view bag
+                            </span>
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
