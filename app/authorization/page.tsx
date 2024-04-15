@@ -4,6 +4,8 @@ import { signIn } from 'next-auth/react';
 import { useState } from "react";
 import LoginForm from '@components/LoginForm';
 import SignUpForm from '@components/SignUpForm';
+import FormSection from '@components/FormSection';
+
 
 const AuthorizationPage = () => {
   const [isNewUser, setIsNewUser] = useState(false);
@@ -55,7 +57,7 @@ const AuthorizationPage = () => {
         Welcome! Login or Sign Up to {<br />}access all features of the marketplace !
       </h2>
 
-      <div className="w-full max-w-[560px] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 " >
+      <FormSection>
         {isNewUser ? <SignUpForm /> : <LoginForm />}
         <div className="pt-[12px] text-m font-medium text-gray-500 dark:text-gray-300">
           {isNewUser ? "Already have an account? " : "Don't have an account? "}
@@ -70,7 +72,7 @@ const AuthorizationPage = () => {
           {googleButton}
           {githubButton}
         </div>
-      </div>
+      </FormSection >
 
     </section>
   )
