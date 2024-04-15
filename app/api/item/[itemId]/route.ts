@@ -7,9 +7,12 @@ export async function GET(
   { params }: { params: { itemId: string } }
 ) {
 
+  await connectToDatabase();
+  const item = await Item.findById(params.itemId);
+
   return NextResponse.json({
     status: true,
-    message: "nonono",
+    item: item.toJSON(),
   });
 }
 

@@ -5,10 +5,13 @@ import RemoveBtn from "./ui/RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ItemsList() {
   const { data: session } = useSession();
   const [items, setItems] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (session?.user?.id) {
@@ -25,6 +28,10 @@ export default function ItemsList() {
     }
   }, [session?.user?.id]);
 
+  // const handleEdit = (itemId: any) => {
+  //   router.push(`/editItem/?id=${itemId}`)
+  // };
+
   return (
     <div>
       {items.map((item: any) => (
@@ -34,12 +41,13 @@ export default function ItemsList() {
         >
           <div>
             <h2 className="font-bolt text-2xl">{item.name}</h2>
-            <div>{item.price}</div>
+            { item.salePrice ? (<div>SalesPrice: {item.salePrice}€</div>) : null}
+            <div>{item.price} €</div>
             <div>{item.description}</div>
           </div>
 
           <div className="flex gap-2 items-center">
-            <RemoveBtn />
+            <RemoveBtn itemId={item._id} />
             <Link href={`/editItem/${item._id}`}>
               <HiPencilAlt size={24} />
             </Link>
