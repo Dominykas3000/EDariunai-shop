@@ -121,16 +121,21 @@ const Navbar = () => {
       //@ts-ignore
       let isSellerRole = session?.user?.role == "seller";
 
-      if (isSellerRole) setIsSeller(true);
-      else if (!isSellerRole) setIsSeller(false);
-    };
+
+    if (isSellerRole)
+      setIsSeller(true);
+    else if (!isSellerRole)
+      setIsSeller(false);
+
+  };
 
     authCheck();
     sellerCheck();
   }, [session]);
 
-  let sellerRedirect =
-    !isSeller && isAuthenticated ? (
+
+  let sellerRedirect = !isSeller && isAuthenticated ?
+    (
       <Link href="/seller-form">
         <span className="-m-2 block p-2 font-medium text-gray-100 ">
           Become a Seller
@@ -418,7 +423,6 @@ const Navbar = () => {
 
                     <div className="flex flex-1 items-center justify-end">
                       <ModeToggle />
-
                       <div className="flex items-center lg:ml-8">
                         {/* Cart */}
                         <div className="ml-4 flow-root lg:ml-8">
