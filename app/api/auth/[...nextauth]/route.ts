@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDatabase } from "@/utils/database";
 import { compare } from "bcryptjs";
 import User from "@/models/user";
 
@@ -24,14 +23,13 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any) {
-        connectToDatabase();
         const user = await User.findOne({ email: credentials.email });
         if (!user) {
           throw new Error("User not found!");
         }
         const checkPassword = await compare(
           credentials.password,
-          user.password,
+          user.password
         );
 
         if (!checkPassword || user.email !== credentials.email) {
@@ -57,7 +55,6 @@ const handler = NextAuth({
     async signIn({ user, account }: { user: any; account: any }) {
       if (account.provider == "google" || account.provider == "github") {
         try {
-          await connectToDatabase();
           const userExists = await User.findOne({ email: user.email });
 
           if (!userExists) {

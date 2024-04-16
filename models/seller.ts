@@ -1,4 +1,9 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+
+const mongoUri: string = process.env.MONGODB_URI || "";
+mongoose.connect(mongoUri, {
+  dbName: process.env.DBNAME,
+});
 
 const SellerSchema = new Schema({
   creator: {

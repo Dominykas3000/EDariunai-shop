@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/item";
-import { connectToDatabase } from "@/utils/database";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { itemId: string } }
 ) {
-
-  await connectToDatabase();
   const item = await Item.findById(params.itemId);
 
   return NextResponse.json({
@@ -34,7 +31,6 @@ export async function PUT(
     newCategory: category,
     sellerId,
   } = await req.json();
-  await connectToDatabase();
 
   // TODO: Implement saleActive logic
   // if( (salePrice < price) && saleStartDate <= Date() && saleEndDate >= Date() ) {
@@ -67,7 +63,6 @@ export async function DELETE(
   { params }: { params: { itemId: string } }
 ) {
   const id = params.itemId;
-  await connectToDatabase();
   await Item.findByIdAndDelete(id);
 
   return NextResponse.json({
