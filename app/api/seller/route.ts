@@ -1,6 +1,18 @@
+import Item from "@/models/item";
 import Seller from "@/models/seller";
-import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+  const sellerId = req.headers.get("data");
+
+  const items = await Item.find({ sellerId: sellerId });
+  console.log("items", items);
+
+  return NextResponse.json({
+    items,
+  });
+}
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();

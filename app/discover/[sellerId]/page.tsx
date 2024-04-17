@@ -3,7 +3,12 @@ export default function functionSellerShop({
 }: {
   params: { sellerId: string };
 }) {
-  fetch(`http://localhost:3000/api/seller/${params.sellerId}`)
+  fetch(`/api/seller`, {
+    method: "GET",
+    headers: {
+      data: params.sellerId,
+    },
+  })
     .then((response) => response.json())
     .then((data) => {
       console.log("data", data);

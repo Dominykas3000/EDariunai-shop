@@ -15,8 +15,11 @@ export default function ItemsList() {
 
   useEffect(() => {
     if (session?.user?.id) {
-      fetch(`http://localhost:3000/api/seller/${session.user.id}`, {
+      fetch(`/api/seller`, {
         method: "GET",
+        headers: {
+          data: session.user.id,
+        }
       })
         .then((res) => res.json())
         .then((data) => {

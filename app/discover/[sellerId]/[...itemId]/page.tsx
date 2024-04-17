@@ -3,8 +3,11 @@ export default function ProductPage({
 }: {
   params: { itemId: string; sellerId: string };
 }) {
-  fetch(`http://localhost:3000/api/item/${params.itemId}`, {
+  fetch(`/api/item`, {
     method: "GET",
+    headers: {
+      data: params.itemId,
+    },
   })
     .then((response) => response.json())
     .then((data) => {
