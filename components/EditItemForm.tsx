@@ -43,6 +43,7 @@ const EditItemForm = ({
           "Content-type": "application/json",
         },
         body: JSON.stringify({
+          itemId: id,
           newName,
           newPrice,
           newDescription,
