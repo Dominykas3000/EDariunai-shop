@@ -20,13 +20,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Iteration 1: Foundation and Basic UI
 ### Tasks:
-- [ ] **Login:** Users can securely access their accounts by providing their credentials.
-- [ ] **OAuth2:** Integration of OAuth2 allows users to sign up or log in using third-party platforms.
-- [ ] **Sign up:** New users can join the community by completing a signup process.
-- [ ] **Set up seller account:** Facilitates a straightforward account setup process for sellers.
-- [ ] **Seller mode toggle:** Sellers can switch between seller and buyer modes.
-- [ ] **Seller Item CRUD:** Sellers can manage their product listings with a CRUD system.
-- [ ] **Sale price functionality:** Sellers can set sale prices for their items.
+- [x] **Login:** Users can securely access their accounts by providing their credentials.
+- [x] **OAuth2:** Integration of OAuth2 allows users to sign up or log in using third-party platforms.
+- [x] **Sign up:** New users can join the community by completing a signup process.
+- [x] **Set up seller account:** Facilitates a straightforward account setup process for sellers.
+- [x] **Seller mode toggle:** Sellers can switch between seller and buyer modes.
+- [?] **Seller Item CRUD:** Sellers can manage their product listings with a CRUD system.
+- [?] **Sale price functionality:** Sellers can set sale prices for their items.
+- VALIDATIONS
 
 ## Iteration 2: Advanced Seller Features
 ### Tasks:
