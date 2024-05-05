@@ -1,4 +1,3 @@
-import { connectToDatabase } from "@/utils/database";
 import User from "@/models/user";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
@@ -6,8 +5,6 @@ import bcrypt from "bcryptjs";
 export async function POST(request: NextRequest) {
   const body = await request.json();
   try {
-    connectToDatabase();
-    
     if (!body) {
       return NextResponse.json({ error: "No data provided" }, { status: 400 });
     }
@@ -21,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (checkUser) {
       return NextResponse.json(
         { error: "User already exists with this email" },
-        { status: 422 },
+        { status: 422 }
       );
     }
     console.log("new user data: ", username, email, password);
@@ -36,7 +33,7 @@ export async function POST(request: NextRequest) {
     console.error("Error in settings route!", error);
     return NextResponse.json(
       { message: "Error in settings route!", error },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

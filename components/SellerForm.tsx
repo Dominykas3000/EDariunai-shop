@@ -32,8 +32,8 @@ const SellerForm = () => {
   });
 
 
-  async function onSubmit(values: any) {
-    const response = await fetch('/api/seller/new', {
+  async function onSubmit() {
+    const response = await fetch('/api/seller', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,14 +1,23 @@
-import { connectToDatabase } from "@/utils/database";
+import Item from "@/models/item";
 import Seller from "@/models/seller";
-import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/user";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(req: NextRequest) {
+  const sellerId = req.headers.get("data");
+
+  const items = await Item.find({ sellerId: sellerId });
+  console.log("items", items);
+
+  return NextResponse.json({
+    items,
+  });
+}
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
   try {
-    connectToDatabase();
-
     if (!body)
       return NextResponse.json({ error: "No data provided" }, { status: 400 });
 
@@ -18,15 +27,14 @@ export const POST = async (request: NextRequest) => {
 
     if (!userCreator) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-    else if (userCreator.role == "seller") {
+    } else if (userCreator.role == "seller") {
       return NextResponse.json(
         { error: "User is already a seller" },
-        { status: 422 },
+        { status: 422 }
       );
     }
 
-    console.log("new seller data: ", creator, name, description)
+    console.log("new seller data: ", creator, name, description);
 
     const seller = new Seller({
       creator: creator,
@@ -45,7 +53,7 @@ export const POST = async (request: NextRequest) => {
     console.error("Error in creating seller!", error);
     return NextResponse.json(
       { message: "Error in creating seller!", error },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };

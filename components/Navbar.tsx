@@ -7,11 +7,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
 import AuthButton from "@/components/AuthButton";
-
-import Image from "next/image";
 import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -106,44 +102,13 @@ function classNames(...classes: any) {
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
-  //TODO move authentication and seller check to somewhere else maybe?
-  const [isAuthenticated, SetIsAuthenticated] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
 
   useEffect(() => {
-    const authCheck = () => {
-      if (session) SetIsAuthenticated(true);
-      else SetIsAuthenticated(false);
-    };
-
-    const sellerCheck = () => {
-      console.log("sessionas", session);
-      //@ts-ignore
-      let isSellerRole = session?.user?.role == "seller";
-
-
-    if (isSellerRole)
-      setIsSeller(true);
-    else if (!isSellerRole)
-      setIsSeller(false);
-
-  };
-
-    authCheck();
-    sellerCheck();
+    if (session) {
+      setIsSeller(session.user?.role === "seller");
+    }
   }, [session]);
-
-
-  let sellerRedirect = !isSeller && isAuthenticated ?
-    (
-      <Link href="/seller-form">
-        <span className="-m-2 block p-2 font-medium text-gray-100 ">
-          Become a Seller
-        </span>
-      </Link>
-    ) : (
-      ""
-    );
 
   return (
     <div className="bg-white">
@@ -261,7 +226,11 @@ const Navbar = () => {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <AuthButton inNav={true} />
-                    {sellerRedirect}
+                    {isSeller ? (
+                      <Button>
+                        <Link href="/dashboard">Seller Dashboard</Link>
+                      </Button>
+                    ) : null}
                   </div>
                 </div>
               </Dialog.Panel>
@@ -277,7 +246,6 @@ const Navbar = () => {
             <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
               <div className="flex items-center space-x-6">
                 <AuthButton inSideMenu={true} />
-                {sellerRedirect}
                 {isSeller ? (
                   <Button>
                     <Link href="/dashboard">Seller Dashboard</Link>

@@ -8,17 +8,16 @@ interface Product {
   tags: string[];
   stock: number;
   category: string;
-  sellerId: Seller;
+  seller: Seller; 
+  sellerId: string;
   salePrice?: number;
 }
 
 interface Seller {
   _id: string;
-  username: string;
-  password: string;
-  email: string;
-  privileges: string;
-  role: string;
+  creator: string;
+  description: string;
+  name: string;
 }
 
 interface ProductCardProps {
@@ -43,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </h5>
 
         <h6 className="block mb-2 font-sans text-sm antialiased font-normal leading-snug tracking-normal text-blue-gray-900">
-          By: {product.sellerId ? product.sellerId.username : ''}
+          By: {product.seller ? product.seller.name : ''}
         </h6>
         <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
           {product.description}

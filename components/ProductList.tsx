@@ -6,7 +6,8 @@ export default function ItemList() {
 
   useEffect(() => {
     const fetchItems = async () => {
-      const response = await fetch("/api/item");
+      const response = await fetch("/api/all-items");
+      console.log(response);
       const data = await response.json();
       console.log(data.items);
       const sortedData = data.items.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
