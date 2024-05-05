@@ -37,12 +37,13 @@ const EditItemForm = ({
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/item/${id}`, {
+      const res = await fetch(`/api/item`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({
+          itemId: id,
           newName,
           newPrice,
           newDescription,
