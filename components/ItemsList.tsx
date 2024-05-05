@@ -14,9 +14,12 @@ export default function ItemsList() {
   const router = useRouter();
 
   useEffect(() => {
-    if (session?.user?.id) {
-      fetch(`http://localhost:3000/api/seller/${session.user.id}`, {
+    if (session?.user?.sellerId) {
+      fetch(`/api/seller`, {
         method: "GET",
+        headers: {
+          data: session.user.sellerId,
+        }
       })
         .then((res) => res.json())
         .then((data) => {
@@ -26,7 +29,7 @@ export default function ItemsList() {
           console.error("Failed to fetch items", error);
         });
     }
-  }, [session?.user?.id]);
+  }, [session?.user?.sellerId]);
 
   // const handleEdit = (itemId: any) => {
   //   router.push(`/editItem/?id=${itemId}`)
