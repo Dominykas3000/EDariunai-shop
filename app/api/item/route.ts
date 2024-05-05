@@ -4,7 +4,7 @@ import Item from "@/models/item";
 export async function GET(
   req: NextRequest
 ) {
-  const itemId = req.headers.get("data");
+  const itemId = req.headers.get("itemId");
   const item = await Item.findById(itemId);
 
   return NextResponse.json({
