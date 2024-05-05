@@ -39,7 +39,7 @@ const AddItem = () => {
             tags,
             stock,
             category,
-            sellerId: session?.user?.id,
+            sellerId: session?.user?.sellerId,
           }),
       });
         if(res.ok) {
