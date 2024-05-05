@@ -47,7 +47,7 @@ const ItemSchema = new Schema({
   },
   sellerId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Seller",
     required: [true, "SellerId is required"],
   },
   createdAt: {
