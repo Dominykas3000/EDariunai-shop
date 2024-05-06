@@ -55,7 +55,6 @@ const handler = NextAuth({
           session.user.sellerId = sellerUser?._id.toHexString() ?? "";
         }
       }
-      console.log("sessionas api/nextauth route\n", session);
       return session;
     },
     async signIn({ user, account }: { user: any; account: any }) {

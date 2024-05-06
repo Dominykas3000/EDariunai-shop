@@ -7,7 +7,6 @@ export async function GET(req: NextRequest) {
   const sellerId = req.headers.get("data");
 
   const items = await Item.find({ sellerId: sellerId });
-  console.log("items", items);
 
   return NextResponse.json({
     items,
@@ -33,8 +32,6 @@ export const POST = async (request: NextRequest) => {
         { status: 422 }
       );
     }
-
-    console.log("new seller data: ", creator, name, description);
 
     const seller = new Seller({
       creator: creator,

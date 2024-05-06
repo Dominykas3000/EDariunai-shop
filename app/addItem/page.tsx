@@ -15,10 +15,8 @@ const AddItem = () => {
   const router = useRouter();
 
   const { data: session } = useSession();
-  // console.log(session);
 
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if(!name || !price || !description || !tags || !stock || !category) {

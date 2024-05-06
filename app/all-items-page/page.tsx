@@ -29,7 +29,6 @@ async function getData(perPage: any, page: any) {
       return { ...item, seller };
     });
 
-    console.log(populatedItems);
     return { items: populatedItems, itemCount };
   } catch (error) {
     throw new Error("Failed to fetch data. Please try again later.");

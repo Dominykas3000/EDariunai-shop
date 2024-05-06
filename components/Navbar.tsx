@@ -12,6 +12,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import CartSidebar from "./cart/CartSidebar";
 
 const navigation = {
   categories: [
@@ -110,6 +111,11 @@ const Navbar = () => {
     }
   }, [session]);
 
+  const openShoppingCart = () => {
+    console.log("hello");
+  };
+
+  const getCartItemAmount = () => {};
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -393,7 +399,10 @@ const Navbar = () => {
                       <ModeToggle />
                       <div className="flex items-center lg:ml-8">
                         {/* Cart */}
-                        <div className="ml-4 flow-root lg:ml-8">
+                        <CartSidebar />
+                        {/* labadienas */}
+                        
+                        {/* <div className="ml-4 flow-root lg:ml-8">
                           <a
                             href="#"
                             className="group -m-2 flex items-center p-2"
@@ -401,6 +410,7 @@ const Navbar = () => {
                             <ShoppingBagIcon
                               className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                               aria-hidden="true"
+                              onClick={() => openShoppingCart()}
                             />
                             <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                               0
@@ -409,7 +419,7 @@ const Navbar = () => {
                               items in cart, view bag
                             </span>
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
