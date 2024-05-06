@@ -232,11 +232,15 @@ const Navbar = () => {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <AuthButton inNav={true} />
+
+                  <h2>hhere</h2>
+
+
                     {isSeller ? (
                       <Button>
                         <Link href="/dashboard">Seller Dashboard</Link>
                       </Button>
-                    ) : null}
+                    ) : <Link href='/seller-form'>Become a seller!</Link>}
                   </div>
                 </div>
               </Dialog.Panel>
@@ -251,12 +255,14 @@ const Navbar = () => {
           <div className="bg-gray-900">
             <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
               <div className="flex items-center space-x-6">
+
                 <AuthButton inSideMenu={true} />
+                <h2>hhere</h2>
                 {isSeller ? (
                   <Button>
                     <Link href="/dashboard">Seller Dashboard</Link>
                   </Button>
-                ) : null}
+                ) : <Link href='/seller-form'>Become a seller!</Link>}
               </div>
             </div>
           </div>
