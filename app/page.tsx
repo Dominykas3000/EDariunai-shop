@@ -1,9 +1,8 @@
 "use client";
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
-import Link from "next/link";
-import { useEffect, useState } from 'react'
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import ProductList from '@/components/ProductList';
+import { getProviders, useSession } from 'next-auth/react';
+import Link from "next/link";
+import { useEffect, useState } from 'react';
 export default function Home() {
 
   const [providers, setProviders] = useState<any | null>(null);
