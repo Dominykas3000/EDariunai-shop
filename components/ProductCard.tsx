@@ -1,3 +1,8 @@
+"use client";
+
+import { Button } from "./ui/button";
+import { useCart } from "@/context/CartContext";
+
 interface Product {
   _id: string;
   name: string;
@@ -6,7 +11,7 @@ interface Product {
   tags: string[];
   stock: number;
   category: string;
-  seller: Seller; 
+  seller: Seller;
   sellerId: string;
   salePrice?: number;
 }
@@ -23,16 +28,22 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { addToCart, cartItems } = useCart();
+
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+  };
+
   return (
     <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl  bg-clip-border rounded-xl w-80 h-auto">
       <div className="mx-4 pb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40">
         {/* Image should be replaced with actual product image */}
-        <img className='rounded-xl'
+        <img
+          className="rounded-xl"
           src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
           alt="card-image"
         />
       </div>
-
 
       <div className="px-6">
         <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
@@ -40,16 +51,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </h5>
 
         <h6 className="block mb-2 font-sans text-sm antialiased font-normal leading-snug tracking-normal text-blue-gray-900">
-          By: {product.seller ? product.seller.name : ''}
+          By: {product.seller ? product.seller.name : ""}
         </h6>
         <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
           {product.description}
         </p>
       </div>
       <div className="flex justify-between p-6 items-end	min-h-[92px]">
-
         {product.salePrice ? (
-          <div className='flex-col'>
+          <div className="flex-col">
             <h5 className="font-sans font-semibold leading-snug tracking-normal text-red-500">
               Sale Price: ${product.salePrice}
             </h5>
@@ -61,8 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <h5 className="font-sans font-semibold leading-snug tracking-normal text-blue-gray-900">
             Price: ${product.price}
           </h5>
-        )
-        }
+        )}
 
         <h5 className="block text-sm text-blue-gray-900">
           Stock: {product.stock}
@@ -75,6 +84,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         >
           Read More
         </button>
+        <Button
+          aria-label="Add to cart"
+          size="sm"
+          className="h-8 rounded-sm"
+          onClick={() => {
+            handleAddToCart(product);
+          }}
+        >
+          Add to cart
+        </Button>
       </div>
     </div>
   );

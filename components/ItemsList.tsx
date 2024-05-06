@@ -51,7 +51,7 @@ export default function ItemsList() {
 
           <div className="flex gap-2 items-center">
             <RemoveBtn itemId={item._id} />
-            <Link href={`/editItem/${item._id}`}>
+            <Link href={`/editItem/${encodeURIComponent(item._id)}`}>
               <HiPencilAlt size={24} />
             </Link>
           </div>

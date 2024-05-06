@@ -1,31 +1,19 @@
 import EditItemForm from "@/components/EditItemForm";
+import Item from "@/models/item";
 
 const getItemById = async ({ itemId }: { itemId: string }) => {
   try {
-    const res = await fetch(`/api/item`, {
-      cache: "no-store",
-      method: "GET",
-      headers: {
-        data: itemId 
-      }
-    },
-  );
+    const item = await Item.findById(itemId);
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch item");
-    }
-
-    return res.json();
+    return item;
   } catch (error) {
     console.error("Failed to fetch item", error);
   }
 };
 
 export default async function EditItem({ params }: { params: { id: string } }) {
-  console.log("params-------------", params);
 
-  const { item } = await getItemById({ itemId: params.id });
-  console.log("item-------------", item);
+  const item  = await getItemById({ itemId: params.id });
   const { name, price, description, tags, stock, category } = item;
   return (
     <EditItemForm

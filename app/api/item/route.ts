@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/item";
 
-export async function GET(
-  req: NextRequest
-) {
-  const itemId = req.headers.get("itemId");
+export async function GET(req: NextRequest) {
+  const itemId = req.headers.get("data");
+
   const item = await Item.findById(itemId);
 
   return NextResponse.json({
@@ -32,9 +31,7 @@ export async function POST(request: NextRequest) {
   });
 }
 
-export async function PUT(
-  req: NextRequest
-) {
+export async function PUT(req: NextRequest) {
   const {
     itemId,
     newName: name,
@@ -77,9 +74,7 @@ export async function PUT(
   });
 }
 
-export async function DELETE(
-  req: NextRequest
-) {
+export async function DELETE(req: NextRequest) {
   const id = req.headers.get("data");
   await Item.findByIdAndDelete(id);
 
@@ -88,4 +83,3 @@ export async function DELETE(
     message: `Delete product: ${id} route`,
   });
 }
-

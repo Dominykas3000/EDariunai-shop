@@ -9,8 +9,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No data provided" }, { status: 400 });
     }
 
-    console.log("body", body);
-
     const { username, email, password } = body;
 
     const checkUser = await User.findOne({ email: email });
@@ -21,13 +19,11 @@ export async function POST(request: NextRequest) {
         { status: 422 }
       );
     }
-    console.log("new user data: ", username, email, password);
     const newUser = await User.create({
       username,
       email,
       password: await bcrypt.hash(password, 10),
     });
-    console.log("credentials create");
     return NextResponse.json({ status: true, user: newUser }, { status: 201 });
   } catch (error) {
     console.error("Error in settings route!", error);
