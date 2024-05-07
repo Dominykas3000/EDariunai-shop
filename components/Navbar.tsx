@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import CartSidebar from "./cart/CartSidebar";
+import SearchBar from "./SearchBar";
 
 const navigation = {
   categories: [
@@ -253,11 +254,13 @@ const Navbar = () => {
         <nav aria-label="Top">
           {/* Top navigation */}
           <div className="bg-gray-900">
-            <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center space-x-6">
+            <div className="mx-auto flex  max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
+              <div className="flex items-center justify-between max-w-7xl w-full">
 
                 <AuthButton inSideMenu={true} />
-                <h2>hhere</h2>
+                
+                <SearchBar/>
+
                 {isSeller ? (
                   <Button>
                     <Link href="/dashboard">Seller Dashboard</Link>
