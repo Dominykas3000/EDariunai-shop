@@ -44,7 +44,7 @@ export default function ItemsList() {
         >
           <div>
             <h2 className="font-bolt text-2xl">{item.name}</h2>
-            { item.salePrice ? (<div>SalesPrice: {item.salePrice}€</div>) : null}
+            {item.salePrice ? (<div>SalesPrice: {item.salePrice}€</div>) : null}
             <div>{item.price} €</div>
             <div>{item.description}</div>
           </div>
