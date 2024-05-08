@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import { useCart } from "@/context/CartContext";
 import { Button } from "./ui/button";
