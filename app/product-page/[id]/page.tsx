@@ -16,7 +16,6 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
 
   const item = await getItemById({ itemId: params.id })
 
-
   return (
     <>
     {item ? <ProductHeader product={JSON.parse(item)} /> : <span>no data</span>}

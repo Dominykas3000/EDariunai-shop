@@ -27,7 +27,7 @@ interface ProductProps {
 }
 
 const ProductHeader = ({ product }: ProductProps) => {
-  // const { _id, name, price, description, tags, stock, category, sellerId, salePrice } = product;
+
   const { addToCart, cartItems } = useCart();
   const handleAddToCart = (product: Product) => {
     addToCart(product);
@@ -73,18 +73,16 @@ const ProductHeader = ({ product }: ProductProps) => {
 
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex gap-6 w-full">
 
-          <Button
-            aria-label="Add to cart"
-            size="sm"
-            className="h-8 rounded-sm"
+          <button
+            className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
             onClick={() => {
               handleAddToCart(product);
             }}
           >
             Add to cart
-          </Button>
+          </button>
 
         </div>
 
