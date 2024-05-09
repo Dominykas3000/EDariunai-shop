@@ -1,9 +1,11 @@
 "use client";
 
 import FormSection from "@/components/FormSection";
+import { UploadButton } from "@/utils/uploadthing";
 import { useFormik } from 'formik';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const AddItem = () => {
   // const [name, setName] = useState("");
@@ -12,6 +14,9 @@ const AddItem = () => {
   // const [tags, setTags] = useState("");
   // const [stock, setStock] = useState("");
   // const [category, setCategory] = useState("");
+
+  const [isPhotoUploaded, setisPhotoUploaded] = useState(false)
+  const [photoLink, setPhotoLink] = useState("")
   const router = useRouter();
 
   const formik = useFormik({
@@ -71,6 +76,7 @@ const AddItem = () => {
       },
       body: JSON.stringify({
         ...values,
+        photoLink,
         sellerId: session?.user?.sellerId,
       })
     });
@@ -237,6 +243,19 @@ const AddItem = () => {
               ) : null
             }
           </div>
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              //console.log("Files: \n", res[0].url);
+              alert("Upload Completed");
+              setPhotoLink(res[0].url)
+
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              alert(`ERROR! ${error.message}`);
+            }}
+          />
           <button
             type="submit"
             className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">

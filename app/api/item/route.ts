@@ -13,8 +13,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const { name, price, description, tags, stock, category, sellerId } =
+  const { name, price, description, tags, stock, category, sellerId, photoLink } =
     await request.json();
+    console.log("photolink\n\n\n", photoLink);
   const item = await Item.create({
     name,
     price,
@@ -23,6 +24,7 @@ export async function POST(request: NextRequest) {
     stock,
     category,
     sellerId,
+    image: photoLink,
   });
 
   return NextResponse.json({
