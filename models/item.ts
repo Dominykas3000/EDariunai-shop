@@ -1,9 +1,7 @@
+import { connectToDatabase } from "@/utils/database";
 import mongoose, { Schema, model, models } from "mongoose";
 
-const mongoUri: string = process.env.MONGODB_URI || "";
-mongoose.connect(mongoUri, {
-  dbName: process.env.DBNAME,
-});
+connectToDatabase()
 
 const ItemSchema = new Schema({
   name: {
@@ -47,7 +45,7 @@ const ItemSchema = new Schema({
   },
   sellerId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Seller",
     required: [true, "SellerId is required"],
   },
   createdAt: {

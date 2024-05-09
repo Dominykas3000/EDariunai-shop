@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import User from "@/models/user";
+import Seller from "@/models/seller";
 
 const handler = NextAuth({
   providers: [
@@ -49,7 +50,12 @@ const handler = NextAuth({
         session.user.privileges = sessionUser.privileges ?? "user";
         session.user.role = sessionUser.role ?? "buyer";
         session.user.image = sessionUser.image ?? "";
+        if (sessionUser.role === "seller") {
+          const sellerUser = await Seller.findOne({ creator: sessionUser._id });
+          session.user.sellerId = sellerUser?._id.toHexString() ?? "";
+        }
       }
+      // console.log("sessionas api/nextauth route\n", session);
       return session;
     },
     async signIn({ user, account }: { user: any; account: any }) {

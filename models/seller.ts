@@ -1,9 +1,7 @@
+import { connectToDatabase } from "@/utils/database";
 import mongoose, { Schema, model, models } from "mongoose";
 
-const mongoUri: string = process.env.MONGODB_URI || "";
-mongoose.connect(mongoUri, {
-  dbName: process.env.DBNAME,
-});
+connectToDatabase()
 
 const SellerSchema = new Schema({
   creator: {
@@ -13,10 +11,6 @@ const SellerSchema = new Schema({
   name: {
     type: String,
     required: [true, "Store name is required!"],
-    // match: [
-    //   /^(?=.{2,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9ĄČĘĖĮŠŲŪąčęėįšųū._]+(?<![_.])$/,
-    //   "Username invalid, it should contain 2-20 alphanumeric letters and be unique!",
-    // ],
   },
   description: {
     type: String,

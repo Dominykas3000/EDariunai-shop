@@ -12,6 +12,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import CartSidebar from "./cart/CartSidebar";
+import SearchBar from "./SearchBar";
 
 const navigation = {
   categories: [
@@ -110,6 +112,11 @@ const Navbar = () => {
     }
   }, [session]);
 
+  const openShoppingCart = () => {
+    console.log("hello");
+  };
+
+  const getCartItemAmount = () => { };
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -226,11 +233,15 @@ const Navbar = () => {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <AuthButton inNav={true} />
+
+                    <h2>hhere</h2>
+
+
                     {isSeller ? (
                       <Button>
                         <Link href="/dashboard">Seller Dashboard</Link>
                       </Button>
-                    ) : null}
+                    ) : <Link href='/seller-form'>Become a seller!</Link>}
                   </div>
                 </div>
               </Dialog.Panel>
@@ -243,14 +254,18 @@ const Navbar = () => {
         <nav aria-label="Top">
           {/* Top navigation */}
           <div className="bg-gray-900">
-            <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center space-x-6">
+            <div className="mx-auto flex  max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
+              <div className="flex items-center justify-between max-w-7xl w-full">
+
                 <AuthButton inSideMenu={true} />
+
+                <SearchBar />
+
                 {isSeller ? (
                   <Button>
                     <Link href="/dashboard">Seller Dashboard</Link>
                   </Button>
-                ) : null}
+                ) : <Link href='/seller-form'>Become a seller!</Link>}
               </div>
             </div>
           </div>
@@ -261,14 +276,14 @@ const Navbar = () => {
                 <div className="flex h-16 items-center justify-between">
                   {/* Logo (lg+) */}
                   <div className="hidden lg:flex lg:flex-1 lg:items-center">
-                    <a href="#">
+                    <Link href="/">
                       <span className="sr-only">Your Company</span>
                       <img
                         className="h-8 w-auto"
                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                         alt=""
                       />
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="hidden h-full lg:flex">
@@ -393,7 +408,10 @@ const Navbar = () => {
                       <ModeToggle />
                       <div className="flex items-center lg:ml-8">
                         {/* Cart */}
-                        <div className="ml-4 flow-root lg:ml-8">
+                        <CartSidebar />
+                        {/* labadienas */}
+
+                        {/* <div className="ml-4 flow-root lg:ml-8">
                           <a
                             href="#"
                             className="group -m-2 flex items-center p-2"
@@ -401,6 +419,7 @@ const Navbar = () => {
                             <ShoppingBagIcon
                               className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                               aria-hidden="true"
+                              onClick={() => openShoppingCart()}
                             />
                             <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                               0
@@ -409,7 +428,7 @@ const Navbar = () => {
                               items in cart, view bag
                             </span>
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

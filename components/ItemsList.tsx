@@ -14,11 +14,11 @@ export default function ItemsList() {
   const router = useRouter();
 
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.sellerId) {
       fetch(`/api/seller`, {
         method: "GET",
         headers: {
-          data: session.user.id,
+          data: session.user.sellerId,
         }
       })
         .then((res) => res.json())
@@ -29,7 +29,7 @@ export default function ItemsList() {
           console.error("Failed to fetch items", error);
         });
     }
-  }, [session?.user?.id]);
+  }, [session?.user?.sellerId]);
 
   // const handleEdit = (itemId: any) => {
   //   router.push(`/editItem/?id=${itemId}`)
@@ -44,14 +44,14 @@ export default function ItemsList() {
         >
           <div>
             <h2 className="font-bolt text-2xl">{item.name}</h2>
-            { item.salePrice ? (<div>SalesPrice: {item.salePrice}€</div>) : null}
+            {item.salePrice ? (<div>SalesPrice: {item.salePrice}€</div>) : null}
             <div>{item.price} €</div>
             <div>{item.description}</div>
           </div>
 
           <div className="flex gap-2 items-center">
             <RemoveBtn itemId={item._id} />
-            <Link href={`/editItem/${item._id}`}>
+            <Link href={`/editItem/${encodeURIComponent(item._id)}`}>
               <HiPencilAlt size={24} />
             </Link>
           </div>

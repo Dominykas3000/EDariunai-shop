@@ -1,9 +1,8 @@
+import { connectToDatabase } from "@/utils/database";
 import mongoose, { Schema, model, models } from "mongoose";
 
-const mongoUri: string = process.env.MONGODB_URI || "";
-mongoose.connect(mongoUri, {
-  dbName: process.env.DBNAME,
-});
+connectToDatabase()
+
 
 const UserSchema = new Schema({
   username: {
