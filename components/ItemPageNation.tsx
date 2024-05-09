@@ -6,11 +6,8 @@ import Seller from "@/models/seller";
 
 async function getData(perPage: any, page: any, filters: any) {
   try {
-    // Connect to MongoDB
     const client = await connectToDatabase();
     const db = client.db("test");
-
-    // MongoDB query filter
     const queryFilter: any = {};
 
     if (filters.price) {
@@ -34,17 +31,17 @@ async function getData(perPage: any, page: any, filters: any) {
       .limit(perPage)
       .toArray();
 
-    // Get total count of filtered items
     const itemCount = await db.collection("items").countDocuments(queryFilter);
-
-    // Fetch sellers for each item
     const sellerIds = items.map((item: any) => item.sellerId);
-    const sellers = await Seller.find({ _id: { $in: sellerIds } });
 
-    // Merge seller data into items
+    const sellers = await db.collection("sellers")
+      .find({ _id: { $in: sellerIds } })
+      .toArray();
+
     const populatedItems = items.map((item: any) => {
       const seller = sellers.find((seller: any) => seller._id.equals(item.sellerId));
-      return { ...item, seller };
+      delete item.sellerId;
+      return { ...item, sellerId: seller };
     });
 
     return { items: populatedItems, itemCount };
@@ -54,7 +51,7 @@ async function getData(perPage: any, page: any, filters: any) {
 }
 
 const ItemPageNation = async (props: any) => {
-  const { searchParams } = props; 
+  const { searchParams } = props;
 
   let page = parseInt(searchParams.page, 10);
   page = !page || page < 1 ? 1 : page;
