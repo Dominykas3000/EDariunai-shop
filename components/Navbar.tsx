@@ -148,7 +148,7 @@ const Navbar = () => {
                 <div className="flex px-4 pb-2 pt-5">
                   <button
                     type="button"
-                    className="-m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                    className="-m-2 inline-flex items-center justify-center  rounded-md p-2 text-gray-400"
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
@@ -263,7 +263,7 @@ const Navbar = () => {
 
                 {isSeller ? (
                   <Button>
-                    <Link href="/dashboard">Seller Dashboard</Link>
+                    <Link href="/seller/dashboard">Seller Dashboard</Link>
                   </Button>
                 ) : <Link href='/seller-form'>Become a seller!</Link>}
               </div>
@@ -380,10 +380,10 @@ const Navbar = () => {
                   </div>
 
                   {/* Mobile menu and search (lg-) */}
-                  <div className="flex flex-1 items-center lg:hidden">
+                  <div className="flex  items-center lg:hidden">
                     <button
                       type="button"
-                      className="-ml-2 rounded-md bg-white p-2 text-gray-400"
+                      className="-ml-2 rounded-md bg-white p-2 text-gray-400 md:hidden"
                       onClick={() => setOpen(true)}
                     >
                       <span className="sr-only">Open menu</span>
@@ -402,7 +402,7 @@ const Navbar = () => {
                   </a>
 
                   <div className="flex flex-1 gap-3 items-center justify-end">
-                    <AuthButton inSideMenu={true} />
+                    {/* <AuthButton inSideMenu={true} /> */}
 
                     <div className="flex flex-1 items-center justify-end">
                       <ModeToggle />

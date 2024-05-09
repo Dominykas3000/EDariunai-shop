@@ -85,7 +85,7 @@ const AddItem = () => {
 
     if (response.ok) {
       console.log('Item added successfully');
-      router.push('/dashboard');
+      router.push('/seller/dashboard');
     } else {
       console.log(data.error);
     }

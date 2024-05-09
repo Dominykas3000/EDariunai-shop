@@ -36,7 +36,7 @@ export default function ItemsList() {
   // };
 
   return (
-    <div>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
       {items.map((item: any) => (
         <div
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5"

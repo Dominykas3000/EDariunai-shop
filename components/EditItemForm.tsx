@@ -12,6 +12,7 @@ const EditItemForm = ({
   tags,
   stock,
   category,
+  image,
 }: {
   id: string;
   name: string;
@@ -20,6 +21,7 @@ const EditItemForm = ({
   tags: string[];
   stock: number;
   category: string;
+  image?: string;
 }) => {
   // const [newName, setNewName] = useState(name);
   // const [newPrice, setNewPrice] = useState(price);
@@ -117,7 +119,7 @@ const EditItemForm = ({
       }
 
       router.refresh();
-      router.push("/dashboard");
+      router.push("/seller/dashboard");
     } catch (error) {
       console.log(error);
     }

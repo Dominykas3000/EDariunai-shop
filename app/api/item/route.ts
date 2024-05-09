@@ -13,9 +13,18 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const { name, price, description, tags, stock, category, sellerId, photoLink } =
-    await request.json();
-    console.log("photolink\n\n\n", photoLink);
+  const {
+    name,
+    price,
+    description,
+    tags,
+    stock,
+    category,
+    sellerId,
+    photoLink,
+    timesVisited,
+  } = await request.json();
+  console.log("photolink\n\n\n", photoLink);
   const item = await Item.create({
     name,
     price,
@@ -25,6 +34,7 @@ export async function POST(request: NextRequest) {
     category,
     sellerId,
     image: photoLink,
+    timesVisited: 0,
   });
 
   return NextResponse.json({
@@ -48,6 +58,7 @@ export async function PUT(req: NextRequest) {
     saleActive,
     newCategory: category,
     sellerId,
+    timesVisited,
   } = await req.json();
 
   // TODO: Implement saleActive logic
@@ -68,6 +79,7 @@ export async function PUT(req: NextRequest) {
     saleActive,
     category,
     sellerId,
+    timesVisited,
   });
 
   return NextResponse.json({
