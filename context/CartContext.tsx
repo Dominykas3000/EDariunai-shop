@@ -10,8 +10,7 @@ interface Product {
   tags: string[];
   stock: number;
   category: string;
-  seller: Seller;
-  sellerId: string;
+  sellerId: Seller;
   salePrice?: number;
 }
 

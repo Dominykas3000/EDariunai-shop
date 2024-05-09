@@ -116,7 +116,7 @@ const Navbar = () => {
     console.log("hello");
   };
 
-  const getCartItemAmount = () => {};
+  const getCartItemAmount = () => { };
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -234,7 +234,7 @@ const Navbar = () => {
                   <div className="flow-root">
                     <AuthButton inNav={true} />
 
-                  <h2>hhere</h2>
+                    <h2>hhere</h2>
 
 
                     {isSeller ? (
@@ -258,8 +258,8 @@ const Navbar = () => {
               <div className="flex items-center justify-between max-w-7xl w-full">
 
                 <AuthButton inSideMenu={true} />
-                
-                <SearchBar/>
+
+                <SearchBar />
 
                 {isSeller ? (
                   <Button>
@@ -276,14 +276,14 @@ const Navbar = () => {
                 <div className="flex h-16 items-center justify-between">
                   {/* Logo (lg+) */}
                   <div className="hidden lg:flex lg:flex-1 lg:items-center">
-                    <a href="#">
+                    <Link href="/">
                       <span className="sr-only">Your Company</span>
                       <img
                         className="h-8 w-auto"
                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                         alt=""
                       />
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="hidden h-full lg:flex">
@@ -410,7 +410,7 @@ const Navbar = () => {
                         {/* Cart */}
                         <CartSidebar />
                         {/* labadienas */}
-                        
+
                         {/* <div className="ml-4 flow-root lg:ml-8">
                           <a
                             href="#"

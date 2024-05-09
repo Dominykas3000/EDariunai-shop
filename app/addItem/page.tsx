@@ -37,7 +37,7 @@ const AddItem = () => {
       }
       if (!values.price) {
         errors.price = 'Required';
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.price)) {
+      } else if (!/^\d+(\.\d{1,2})?$/.test(values.price.toString())) {
         errors.price = 'Invalid price, it should be a number!';
       }
       if (!values.description) {
@@ -115,7 +115,8 @@ const AddItem = () => {
               id="product-name"
               placeholder="Item Name"
               autoComplete='off'
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 " type="text"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
+              type="text"
             />
             {
               formik.errors.name && formik.touched.name ?
