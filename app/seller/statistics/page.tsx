@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+interface Item {
+  name: string;
+  timesVisited: number;
+}
 
 const StatisticsPage = () => {
   const { data: session } = useSession();
   const [items, setItems] = useState([]);
   const [totalViewed, setTotalViewed] = useState(0);
-  const [bestPerformer, setBestPerformer] = useState(null);
-
+  const [bestPerformer, setBestPerformer] = useState<Item | null>(null);
   useEffect(() => {
     if (session?.user?.sellerId) {
       fetch(`/api/seller`, {
