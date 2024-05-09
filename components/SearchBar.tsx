@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useCart } from "@/context/CartContext";
 
 interface Product {
   _id: string;
@@ -24,13 +24,6 @@ interface Seller {
 function SearchComponent() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { addToCart, cartItems } = useCart();
-
-
-
-  const handleAddToCart = (product: Product) => {
-    addToCart(product);
-  };
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -96,15 +89,13 @@ function SearchComponent() {
                 <p className='text-sm'>Price:  ${item.price}</p>
               </div>
               <div className='flex justify-center items-center'>
-                <button className='bg-gray-700 text-white rounded-md px-2 py-1'
-                  onClick={() => {
-                    handleAddToCart(item);
-                  }}
-                >
-                  Add to cart
-                </button>
+                <Link href={`/product-page/${encodeURIComponent(item._id)}`}>
+                  <button className='bg-gray-700 text-white rounded-md px-2 py-1'
+                  >
+                    Read more
+                  </button>
+                </Link>
               </div>
-              {/* <p>Description: {item.description}</p> */}
             </li>
           ))) : (<p>loading..</p>)
         }
