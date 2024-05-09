@@ -12,6 +12,7 @@ interface Product {
   description: string;
   tags: string[];
   stock: number;
+  image?: string;
   category: string;
   sellerId: Seller;
   salePrice?: number;
@@ -37,10 +38,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl  bg-clip-border rounded-xl w-80 h-auto">
-      <div className="mx-4 pb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40">
+      <div className="mx-4 pb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40 min-h-[310px] flex justify-center items-center">
         <img
-          className="rounded-xl"
-          src="https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
+          className="rounded-xl object-contain"
+          src={ product.image ? product.image :
+            "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"}
           alt="card-image"
         />
       </div>
@@ -53,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <h6 className="block mb-2 font-sans text-sm antialiased font-normal leading-snug tracking-normal text-blue-gray-900">
           By: {product.sellerId ? product.sellerId.name : ""}
         </h6>
-        <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+        <p className="min-h-[50px] block font-sans text-base antialiased font-light leading-relaxed text-inherit">
           {product.description}
         </p>
       </div>

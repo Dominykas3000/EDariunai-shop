@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/utils/database";
 import mongoose, { Schema, model, models } from "mongoose";
 
-connectToDatabase()
+connectToDatabase();
 
 const ItemSchema = new Schema({
   name: {
@@ -55,6 +55,10 @@ const ItemSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+  timesVisited: {
+    type: Number,
+    default: 0,
   },
 });
 

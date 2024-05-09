@@ -7,7 +7,7 @@ export default function SellerLayout({
     children: React.ReactNode
   }) {
     return (
-      <div className="w-full h-full flex flex-row">
+      <div className="w-full h-full flex flex-col">
         <SellerSideBar />
         {children}
       </div>

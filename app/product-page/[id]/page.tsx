@@ -6,6 +6,12 @@ const getItemById = async ({ itemId }: { itemId: string }) => {
     console.log("itemid", itemId)
     const item = await Item.findById(itemId).populate('sellerId');
 
+    if (item) {
+      item.timesVisited += 1;
+      console.log(item.timesVisited)
+      await item.save();
+    }
+
     return JSON.stringify(item);
   } catch (error) {
     console.error("Failed to fetch item", error);
@@ -18,7 +24,7 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-    {item ? <ProductHeader product={JSON.parse(item)} /> : <span>no data</span>}
+      {item ? <ProductHeader product={JSON.parse(item)} /> : <span>no data</span>}
     </>
 
   );

@@ -2,7 +2,7 @@ export default function SellerPage() {
 
   return (
     <section className="w-full h-full">
-      <nav>haha</nav>
+      {/* <nav>haha</nav> */}
     </section>
   )
 }

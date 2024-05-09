@@ -15,7 +15,7 @@ const getItemById = async ({ itemId }: { itemId: string }) => {
 export default async function EditItem({ params }: { params: { id: string } }) {
 
   const item = await getItemById({ itemId: params.id });
-  const { name, price, description, tags, stock, category } = item;
+  const { name, price, description, tags, stock, category, image } = item;
   return (
     <>
       <h2 className="lg:text-3xl sm:text-2xl text-center pb-4">
@@ -30,6 +30,7 @@ export default async function EditItem({ params }: { params: { id: string } }) {
           tags={tags}
           stock={stock}
           category={category}
+          image={image}
         />
       </FormSection >
     </>

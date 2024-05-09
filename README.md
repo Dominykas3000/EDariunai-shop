@@ -31,8 +31,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Iteration 2: Advanced Seller Features
 ### Tasks:
-- [ ] **Photo Upload:** Sellers can upload images to enhance product listings.
-- [ ] **Seller dashboard:** Sellers gain access to a comprehensive dashboard.
+- [x] **Photo Upload:** Sellers can upload images to enhance product listings.
+- [x] **Seller dashboard:** Sellers gain access to a comprehensive dashboard.
 - [x] **Search:** Users can efficiently find products on the platform.
 - [x] **Filter:** Various filters are available for users to narrow down their search.
 - [x] **Cart:** Shoppers can easily manage their selections in the cart.

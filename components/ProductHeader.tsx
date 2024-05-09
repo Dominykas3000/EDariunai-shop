@@ -9,6 +9,7 @@ interface Product {
   description: string;
   tags: string[];
   stock: number;
+  image?: string;
   category: string;
   sellerId: Seller;
   salePrice?: number;
@@ -33,10 +34,15 @@ const ProductHeader = ({ product }: ProductProps) => {
   }
 
   return (
-    <section className="flex items-start w-full mb-6 text-xs justify-start  flex-col md:flex-row gap-8 md:px-0  px-4">
+    <section className="flex  items-start w-full mb-6 text-xs justify-start  md:flex-row  gap-8 md:px-0  px-4">
       <div className="flex flex-col items-start md:w-1/2 w-full">
         <div className="w-full">
-          <img src="https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
+          <img
+            className="rounded-xl object-contain w-full h-auto"
+            src={
+            product.image ? product.image :
+            "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
+          }
             alt="card-image" />
         </div>
       </div>
