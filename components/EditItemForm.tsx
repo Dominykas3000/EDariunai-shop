@@ -53,8 +53,8 @@ const EditItemForm = ({
       const errors: any = {};
       if (!values.newName) {
         errors.newName = 'Required';
-      } else if (!/^.{3,}$/.test(values.newName)) {
-        errors.newName = 'Invalid name, it should contain at least 3 characters!';
+      } else if (!/^.{3,75}$/.test(values.newName)) {
+        errors.newName = 'Invalid name, it should contain at least 3 characters and no more than 75!';
       }
       if (!values.newPrice) {
         errors.newPrice = 'Required';
@@ -63,8 +63,8 @@ const EditItemForm = ({
       }
       if (!values.newDescription) {
         errors.newDescription = 'Required';
-      } else if (!/^.{10,}$/.test(values.newDescription)) {
-        errors.newDescription = 'Invalid description, it should contain at least 10 characters!';
+      } else if (!/^.{10,500}$/.test(values.newDescription)) {
+        errors.newDescription = 'Invalid description, it should contain between 10 and 500 characters!';
       }
       if (!values.newTags) {
         errors.newTags = 'Required';
@@ -105,7 +105,7 @@ const EditItemForm = ({
           newDescription: values.newDescription,
           newTags: values.newTags,
           newStock: values.newStock,
-          newImage: '',
+          image,
           salePrice: values.salePrice,
           newStartDate: values.newStartDate,
           newEndDate: values.newEndDate,
@@ -258,8 +258,8 @@ const EditItemForm = ({
           <option value="Jackets">Jackets</option>
           <option value="Shirts">Shirts</option>
           <option value="T-shirts">T-shirts</option>
-          <option value="Something More">Hats</option>
-          <option value="Something More">Tech</option>
+          <option value="Hats">Hats</option>
+          <option value="Tech">Tech</option>
         </select>
         {
           formik.errors.newCategory && formik.touched.newCategory ? (
@@ -269,7 +269,7 @@ const EditItemForm = ({
           ) : null
         }
       </div>
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <label
           htmlFor="stock"
           className="block mb-2 text-base font-medium text-gray-900 ">
@@ -283,7 +283,7 @@ const EditItemForm = ({
           type="text"
           placeholder="Image URL"
         />
-      </div>
+      </div> */}
       <div className="flex flex-col">
         <label className="block mb-2 text-base font-medium text-gray-900 ">
           Sale Price:

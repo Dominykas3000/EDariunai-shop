@@ -22,9 +22,13 @@ const SellerForm = () => {
       const errors: any = {};
       if (!values.name) {
         errors.name = 'Required';
-      } 
+      } else if (!/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9ĄČĘĖĮŠŲŪąčęėįšųū.\s]*$/.test(values.name)) {
+        errors.name = 'Invalid name, it should contain 3-20 alphanumeric characters and be unique!';
+      }
       if (!values.description) {
         errors.description = 'Required';
+      } else if (!/^.{10,500}$/.test(values.description)) {
+        errors.description = 'Invalid description, it should contain between 10 and 500 characters!';
       }
       return errors;
     },

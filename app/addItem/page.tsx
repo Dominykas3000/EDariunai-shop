@@ -32,18 +32,18 @@ const AddItem = () => {
       const errors: any = {};
       if (!values.name) {
         errors.name = 'Required';
-      } else if (!/^.{3,}$/.test(values.name)) {
-        errors.name = 'Invalid name, it should contain at least 3 characters!';
+      } else if (!/^.{3,75}$/.test(values.name)) {
+        errors.name = 'Invalid name, it should contain at least 3  and no longer than 75!';
       }
       if (!values.price) {
         errors.price = 'Required';
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.price.toString())) {
+      } else if (!/^\d+(\.\d{1,2})?$/.test(values.price.toString()) && values.price !== "") {
         errors.price = 'Invalid price, it should be a number!';
       }
       if (!values.description) {
         errors.description = 'Required';
-      } else if (!/^.{10,}$/.test(values.description)) {
-        errors.description = 'Invalid description, it should contain at least 10 characters!';
+      } else if (!/^.{10,500}$/.test(values.description)) {
+        errors.description = 'Invalid description, it should contain between 10 and 500 characters!';
       }
       if (!values.tags) {
         errors.tags = 'Required';
@@ -232,8 +232,8 @@ const AddItem = () => {
               <option value="Jackets">Jackets</option>
               <option value="Shirts">Shirts</option>
               <option value="T-shirts">T-shirts</option>
-              <option value="Something More">Hats</option>
-              <option value="Something More">Tech</option>
+              <option value="Hats">Hats</option>
+              <option value="Tech">Tech</option>
             </select>
             {
               formik.errors.category && formik.touched.category ? (
