@@ -18,7 +18,7 @@ const EditItemForm = ({
   name: string;
   price: number;
   description: string;
-  tags: string[];
+  tags: string;
   stock: number;
   category: string;
   image?: string;
@@ -49,50 +49,49 @@ const EditItemForm = ({
       newStartDate: '',
       newEndDate: ''
     },
-    validate: (values) => {
-      const errors: any = {};
-      if (!values.newName) {
-        errors.newName = 'Required';
-      } else if (!/^.{3,75}$/.test(values.newName)) {
-        errors.newName = 'Invalid name, it should contain at least 3 characters and no more than 75!';
-      }
-      if (!values.newPrice) {
-        errors.newPrice = 'Required';
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.newPrice.toString())) {
-        errors.newPrice = 'Invalid price, it should be a number!';
-      }
-      if (!values.newDescription) {
-        errors.newDescription = 'Required';
-      } else if (!/^.{10,500}$/.test(values.newDescription)) {
-        errors.newDescription = 'Invalid description, it should contain between 10 and 500 characters!';
-      }
-      if (!values.newTags) {
-        errors.newTags = 'Required';
-      } else if (values.newTags.length < 1) {
-        errors.newTags = 'Invalid tags, it should contain at least 1 tag!';
-      }
-      if (!values.newStock) {
-        errors.newStock = 'Required';
-      } else if (!/^\d+$/.test(values.newStock.toString())) {
-        errors.newStock = 'Invalid stock, it should be a number!';
-      }
-      if (!values.newCategory) {
-        errors.newCategory = 'Required';
-      }
-      if (!values.salePrice) {
-        errors.salePrice = 'Required';
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.salePrice.toString())) {
-        errors.salePrice = 'Invalid sale price, it should be a number!';
-      }
+    // validate: (values) => {
+    //   const errors: any = {};
+    //   if (!values.newName) {
+    //     errors.newName = 'Required';
+    //   } else if (!/^.{3,75}$/.test(values.newName)) {
+    //     errors.newName = 'Invalid name, it should contain at least 3 characters and no more than 75!';
+    //   }
+    //   if (!values.newPrice) {
+    //     errors.newPrice = 'Required';
+    //   } else if (!/^\d+(\.\d{1,2})?$/.test(values.newPrice.toString())) {
+    //     errors.newPrice = 'Invalid price, it should be a number!';
+    //   }
+    //   if (!values.newDescription) {
+    //     errors.newDescription = 'Required';
+    //   } else if (!/^.{10,500}$/.test(values.newDescription)) {
+    //     errors.newDescription = 'Invalid description, it should contain between 10 and 500 characters!';
+    //   }
+    //   if (!values.newTags) {
+    //     errors.newTags = 'Required';
+    //   }
+    //   if (!values.newStock) {
+    //     errors.newStock = 'Required';
+    //   } else if (!/^\d+$/.test(values.newStock.toString())) {
+    //     errors.newStock = 'Invalid stock, it should be a number!';
+    //   }
+    //   if (!values.newCategory) {
+    //     errors.newCategory = 'Required';
+    //   }
+    //   if (!values.salePrice) {
+    //     errors.salePrice = 'Required';
+    //   } else if (!/^\d+(\.\d{1,2})?$/.test(values.salePrice.toString())) {
+    //     errors.salePrice = 'Invalid sale price, it should be a number!';
+    //   }
 
-      return errors;
-    },
+    //   return errors;
+    // },
     onSubmit: onSubmit,
   });
 
 
   async function onSubmit(values: any) {
     try {
+      console.warn('clicked')
       const res = await fetch(`/api/item`, {
         method: "PUT",
         headers: {

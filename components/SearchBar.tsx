@@ -23,41 +23,61 @@ interface Seller {
 
 function SearchComponent() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchButtonPressed, setSearchButtonPressed] = useState(false);
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      try {
+  const noSearchResultsDiv = (
+    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+      <p className='text-lg font-bold py-2 px-2'>No search results found</p>
+    </div>
+  );
 
-        console.warn("searchTerm", searchTerm);
-        const response = await fetch(`/api/search-item`, {
-          method: 'GET',
-          headers: {
-            data: searchTerm,
-          }
-        });
+  const searchingDiv = (
+    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+      <p className='text-lg font-bold py-2 px-2'>Searching...</p>
+    </div>
+  );
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch search results');
-        }
+  const fetchSearchResults = async () => {
+    try {
+      setIsSearching(true);
 
-        const data = await response.json();
-        setSearchResults(data.items);
-
-      } catch (error) {
-        console.error('Error fetching search results:', error);
+      if (searchTerm.trim() === '') {
+        setSearchResults([]);
+        setIsSearching(false);
+        return;
       }
-    };
 
-    if (searchTerm.trim() !== '') {
-      fetchSearchResults();
-    } else {
-      setSearchResults([]);
+      const response = await fetch(`/api/search-item`, {
+        method: 'GET',
+        headers: {
+          data: searchTerm,
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch search results');
+      }
+
+      const data = await response.json();
+      setSearchResults(data.items);
+      setIsSearching(false);
+
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      setIsSearching(false);
     }
-  }, [searchTerm]);
+  };
 
-  const handleInputChange = (e: any) => {
+  const handleSearch = () => {
+    fetchSearchResults();
+    setSearchButtonPressed(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+    setSearchButtonPressed(false);
   };
 
   return (
@@ -77,29 +97,44 @@ function SearchComponent() {
           placeholder="Search Items, Logos..."
           required
         />
+        <button type="submit"
+          onClick={handleSearch}
+          disabled={isSearching}
+          className="text-white absolute end-2.5 top-[5px] bottom-[5px] align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs px-2  rounded-lg bg-gray-900  shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">Search</button>
       </div>
 
+      {isSearching ? searchingDiv : ''}
 
-      <ul className='absolute bg-white shadow-2xl rounded-m top-[70px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px]'>
-        {
-          searchResults ? (searchResults.map((item: any, index: number) => (
-            <li className='flex flex-row justify-between gap-2 border-b border-zinc-800 mb-2 px-3' key={index}>
-              <div className='flex flex-col mb-2'>
-                <h3>Name: {item.name}</h3>
-                <p className='text-sm'>Price:  ${item.price}</p>
-              </div>
-              <div className='flex justify-center items-center'>
-                <Link href={`/product-page/${encodeURIComponent(item._id)}`}>
-                  <button className='bg-gray-700 text-white rounded-md px-2 py-1'
-                  >
-                    Read more
-                  </button>
-                </Link>
-              </div>
-            </li>
-          ))) : (<p>loading..</p>)
-        }
-      </ul>
+      {
+        searchButtonPressed &&
+        searchTerm.trim() !== '' &&
+        searchResults.length === 0 &&
+        !isSearching &&
+        noSearchResultsDiv
+      }
+
+      {
+        searchTerm.trim() !== '' && searchResults.length > 0 ?
+          (
+            <ul className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+              {searchResults.map((item: Product, index: number) => (
+                <li className='flex flex-row justify-between gap-2 border-b border-zinc-800 mb-2 px-3' key={index}>
+                  <div className='flex flex-col mb-2'>
+                    <h3>Name: {item.name}</h3>
+                    <p className='text-sm'>Price:  ${item.price}</p>
+                  </div>
+                  <div className='flex justify-center items-center'>
+                    <Link href={`/product-page/${encodeURIComponent(item._id)}`}>
+                      <button className='bg-gray-700 text-white rounded-md px-2 py-1'>
+                        Read more
+                      </button>
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : ''
+      }
     </div>
   );
 }
