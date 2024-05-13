@@ -22,6 +22,40 @@ export const POST = async (request: NextRequest) => {
 
     const { creator, name, description } = body;
 
+    if (!creator || !name || !description) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 },
+      );
+    }
+
+    const nameRegex =
+      !/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9ĄČĘĖĮŠŲŪąčęėįšųū.\s]*$/.test(
+        name,
+      );
+
+    if (nameRegex) {
+      return NextResponse.json(
+        {
+          error:
+            "Invalid name, it should contain 3-20 alphanumeric characters and be unique!",
+        },
+        { status: 422 },
+      );
+    }
+
+    const descriptionRegex = !/^.{10,500}$/.test(description);
+
+    if (descriptionRegex) {
+      return NextResponse.json(
+        {
+          error:
+            "Invalid description, it should contain between 10 and 500 characters!",
+        },
+        { status: 422 },
+      );
+    }
+
     const userCreator = await User.findById(creator);
 
     if (!userCreator) {
@@ -29,7 +63,7 @@ export const POST = async (request: NextRequest) => {
     } else if (userCreator.role == "seller") {
       return NextResponse.json(
         { error: "User is already a seller" },
-        { status: 422 }
+        { status: 422 },
       );
     }
 
@@ -50,7 +84,7 @@ export const POST = async (request: NextRequest) => {
     console.error("Error in creating seller!", error);
     return NextResponse.json(
       { message: "Error in creating seller!", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

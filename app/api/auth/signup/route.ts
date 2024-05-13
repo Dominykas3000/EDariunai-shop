@@ -11,14 +11,48 @@ export async function POST(request: NextRequest) {
 
     const { username, email, password } = body;
 
-    const checkUser = await User.findOne({ email: email });
+    const usernameRegex =
+      /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9ĄČĘĖĮŠŲŪąčęėįšųū._]+(?<![_.])$/;
 
-    if (checkUser) {
+    // Check if the username complies with the regex
+    if (!usernameRegex.test(username)) {
       return NextResponse.json(
-        { error: "User already exists with this email" },
-        { status: 422 }
+        { error: "Username does not meet requirements" },
+        { status: 422 },
       );
     }
+
+    const passwordRegex = !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(
+      password,
+    );
+
+    if (passwordRegex) {
+      return NextResponse.json(
+        { error: "Password does not meet requirements" },
+        { status: 422 },
+      );
+    }
+
+    const checkUserEmail = await User.findOne({ email: email });
+
+    if (checkUserEmail) {
+      return NextResponse.json(
+        { error: "User already exists with this email" },
+        { status: 422 },
+      );
+    }
+
+    const checkUserName = await User.findOne({
+      username: username,
+    });
+
+    if (checkUserName) {
+      return NextResponse.json(
+        { error: "User already exists with this username" },
+        { status: 422 },
+      );
+    }
+
     const newUser = await User.create({
       username,
       email,
@@ -29,7 +63,7 @@ export async function POST(request: NextRequest) {
     console.error("Error in settings route!", error);
     return NextResponse.json(
       { message: "Error in settings route!", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

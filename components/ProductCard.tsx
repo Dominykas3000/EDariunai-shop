@@ -31,14 +31,6 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
-  let descriptionStyling = {
-    "display": "-webkit-box;",
-    "-webkit-box-orient": "vertical;",
-    "-webkit-line-clamp": "3;",
-    "overflow": "hidden;",
-    "text-overflow": "ellipsis;",
-  }
-
   const { addToCart, cartItems } = useCart();
 
   const handleAddToCart = (product: Product) => {
@@ -67,11 +59,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="min-h-[50px] max-h-[50px] overflow-hidden text-ellipsis">
           <p className=" block font-sans antialiased text-xs"
             style={{
-              "display": "-webkit-box;",
-              "-webkit-box-orient": "vertical;",
-              "-webkit-line-clamp": "3;",
-              "overflow": "hidden;",
-              "text-overflow": "ellipsis;",
+              "display": "-webkit-box",
+              // @ts-ignore
+              "-webkit-box-orient": "vertical",
+              "-webkit-line-clamp": "3",
+              "overflow": "hidden",
+              "text-overflow": "ellipsis",
             }}>
             {product.description}
           </p>
@@ -114,7 +107,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             handleAddToCart(product);
           }}
         >
-          <IoCartSharp style={{ "width": "1.75em;", "height": "1.75em;" }} />
+          <IoCartSharp style={{ "width": "1.75em", "height": "1.75em" }} />
         </Button>
       </div>
     </div >
