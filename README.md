@@ -25,8 +25,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Sign up:** New users can join the community by completing a signup process.
 - [x] **Set up seller account:** Facilitates a straightforward account setup process for sellers.
 - [x] **Seller mode toggle:** Sellers can switch between seller and buyer modes.
-- [?] **Seller Item CRUD:** Sellers can manage their product listings with a CRUD system.
-- [?] **Sale price functionality:** Sellers can set sale prices for their items.
+- [x] **Seller Item CRUD:** Sellers can manage their product listings with a CRUD system.
+- [x] **Sale price functionality:** Sellers can set sale prices for their items.
 - VALIDATIONS
 
 ## Iteration 2: Advanced Seller Features
