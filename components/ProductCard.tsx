@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
-
+import { IoCartSharp } from "react-icons/io5";
 import { Button } from "./ui/button";
 import { useCart } from "@/context/CartContext";
 
@@ -30,6 +30,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
   const { addToCart, cartItems } = useCart();
 
   const handleAddToCart = (product: Product) => {
@@ -38,10 +39,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl  bg-clip-border rounded-xl w-80 h-auto">
-      <div className="mx-4 pb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40 min-h-[310px] flex justify-center items-center">
+      <div className="mx-4 mb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40 min-h-[310px] flex justify-center items-center">
         <img
-          className="rounded-xl object-contain"
-          src={ product.image ? product.image :
+          className="rounded-xl object-contain max-h-[280px]"
+          src={product.image ? product.image :
             "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"}
           alt="card-image"
         />
@@ -55,9 +56,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <h6 className="block mb-2 font-sans text-sm antialiased font-normal leading-snug tracking-normal text-blue-gray-900">
           By: {product.sellerId ? product.sellerId.name : ""}
         </h6>
-        <p className="min-h-[50px] block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-          {product.description}
-        </p>
+        <div className="min-h-[50px] max-h-[50px] overflow-hidden text-ellipsis">
+          <p className=" block font-sans antialiased text-xs"
+            style={{
+              "display": "-webkit-box",
+              // @ts-ignore
+              "-webkit-box-orient": "vertical",
+              "-webkit-line-clamp": "3",
+              "overflow": "hidden",
+              "text-overflow": "ellipsis",
+            }}>
+            {product.description}
+          </p>
+        </div>
       </div>
       <div className="flex justify-between p-6 items-end	min-h-[92px]">
         {product.salePrice ? (
@@ -91,15 +102,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Button
           aria-label="Add to cart"
           size="sm"
-          className="h-8 rounded-sm"
+          className="px-6 py-3 rounded-sm max-h-[40px] h-full"
           onClick={() => {
             handleAddToCart(product);
           }}
         >
-          Add to cart
+          <IoCartSharp style={{ "width": "1.75em", "height": "1.75em" }} />
         </Button>
       </div>
-    </div>
+    </div >
   );
 };
 

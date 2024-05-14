@@ -241,7 +241,11 @@ const Navbar = () => {
                       <Button>
                         <Link href="/dashboard">Seller Dashboard</Link>
                       </Button>
-                    ) : <Link href='/seller-form'>Become a seller!</Link>}
+                    ) :
+                      <Button>
+                        <Link href='/seller-form'>Become a seller!</Link>
+                      </Button>
+                    }
                   </div>
                 </div>
               </Dialog.Panel>
@@ -261,11 +265,20 @@ const Navbar = () => {
 
                 <SearchBar />
 
-                {isSeller ? (
-                  <Button>
-                    <Link href="/seller/dashboard">Seller Dashboard</Link>
-                  </Button>
-                ) : <Link href='/seller-form'>Become a seller!</Link>}
+                {
+                  session?.user ?  ( 
+                    isSeller ? (
+                      <Button>
+                        <Link href="/seller/dashboard">
+                          Seller Dashboard
+                        </Link>
+                      </Button>
+                    ) :
+                      <Button>
+                        <Link href='/seller-form'>Become a seller!</Link>
+                      </Button>
+                  ) : <div></div>
+                }
               </div>
             </div>
           </div>

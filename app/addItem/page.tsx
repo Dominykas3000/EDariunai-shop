@@ -8,13 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AddItem = () => {
-  // const [name, setName] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [tags, setTags] = useState("");
-  // const [stock, setStock] = useState("");
-  // const [category, setCategory] = useState("");
-
+  const [sending, setSending] = useState(false);
   const [isPhotoUploaded, setisPhotoUploaded] = useState(false)
   const [photoLink, setPhotoLink] = useState("")
   const router = useRouter();
@@ -65,9 +59,9 @@ const AddItem = () => {
   });
 
   const { data: session } = useSession();
-  // console.log(session);
 
   async function onSubmit(values: any) {
+    setSending(true);
 
     const response = await fetch('/api/item', {
       method: 'POST',
@@ -75,7 +69,12 @@ const AddItem = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ...values,
+        name: values.name,
+        price: values.price,
+        description: values.description,
+        tags: values.tags.split(' '),
+        stock: values.stock,
+        category: values.category,
         photoLink,
         sellerId: session?.user?.sellerId,
       })
@@ -85,8 +84,10 @@ const AddItem = () => {
 
     if (response.ok) {
       console.log('Item added successfully');
+      setSending(false);
       router.push('/seller/dashboard');
     } else {
+      setSending(false);
       console.log(data.error);
     }
 
@@ -258,7 +259,8 @@ const AddItem = () => {
           />
           <button
             type="submit"
-            className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+            disabled={sending}
+            className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
             Add Item
           </button>
         </form >

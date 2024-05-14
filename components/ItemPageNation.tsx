@@ -1,8 +1,6 @@
-import Link from "next/link"
 import ProductCard from "@/components/ProductCard";
 import { connectToDatabase } from "@utils/connectMongo";
-import Item from "@/models/item";
-import Seller from "@/models/seller";
+import Link from "next/link";
 
 async function getData(perPage: any, page: any, filters: any) {
   try {

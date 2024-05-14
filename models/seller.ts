@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/utils/database";
 import mongoose, { Schema, model, models } from "mongoose";
 
-connectToDatabase()
+connectToDatabase();
 
 const SellerSchema = new Schema({
   creator: {
@@ -16,11 +16,12 @@ const SellerSchema = new Schema({
     type: String,
     required: [true, "Description is required!"],
   },
-  storeItems: {
-    ref: "Item",
-    type: Array,
-    default: [],
-  },
+  storeItems: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Item",
+    },
+  ],
 });
 
 const Seller = models.Seller || model("Seller", SellerSchema);

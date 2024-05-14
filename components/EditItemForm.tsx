@@ -23,16 +23,8 @@ const EditItemForm = ({
   category: string;
   image?: string;
 }) => {
-  // const [newName, setNewName] = useState(name);
-  // const [newPrice, setNewPrice] = useState(price);
-  // const [newDescription, setNewDescription] = useState(description);
-  // const [newTags, setNewTags] = useState(tags);
-  // const [newStock, setNewStock] = useState(stock);
-  // const [newCategory, setNewCategory] = useState(category);
-  // const [newImage, setNewImage] = useState("");
-  // const [salePrice, setSalePrice] = useState(0);
-  // const [newStartDate, setNewStartDate] = useState("");
-  // const [newEndDate, setNewEndDate] = useState("");
+
+  const [sending, setSending] = useState(false);
 
   const router = useRouter();
 
@@ -41,7 +33,7 @@ const EditItemForm = ({
       newName: name,
       newPrice: price,
       newDescription: description,
-      newTags: tags,
+      newTags: tags.join(' '),
       newStock: stock,
       newCategory: category,
       image: '',
@@ -68,8 +60,8 @@ const EditItemForm = ({
       }
       if (!values.newTags) {
         errors.newTags = 'Required';
-      } else if (values.newTags.length < 1) {
-        errors.newTags = 'Invalid tags, it should contain at least 1 tag!';
+      } else if (!/^.{3,}$/.test(values.newTags)) {
+        errors.newTags = 'Invalid tags, it should contain at least 3 characters!';
       }
       if (!values.newStock) {
         errors.newStock = 'Required';
@@ -79,11 +71,7 @@ const EditItemForm = ({
       if (!values.newCategory) {
         errors.newCategory = 'Required';
       }
-      if (!values.salePrice) {
-        errors.salePrice = 'Required';
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.salePrice.toString())) {
-        errors.salePrice = 'Invalid sale price, it should be a number!';
-      }
+
 
       return errors;
     },
@@ -91,8 +79,13 @@ const EditItemForm = ({
   });
 
 
+  console.log(formik.values.newTags);
+
   async function onSubmit(values: any) {
     try {
+
+      setSending(true);
+
       const res = await fetch(`/api/item`, {
         method: "PUT",
         headers: {
@@ -103,7 +96,7 @@ const EditItemForm = ({
           newName: values.newName,
           newPrice: values.newPrice,
           newDescription: values.newDescription,
-          newTags: values.newTags,
+          newTags: values.newTags.split(' '),
           newStock: values.newStock,
           image,
           salePrice: values.salePrice,
@@ -113,14 +106,16 @@ const EditItemForm = ({
         }),
       });
 
-      // console.log(salePrice);
       if (!res.ok) {
+        setSending(false);
         throw new Error("Failed to update topic");
       }
 
       router.refresh();
+      setSending(false);
       router.push("/seller/dashboard");
     } catch (error) {
+      setSending(false);
       console.log(error);
     }
   };
@@ -325,8 +320,8 @@ const EditItemForm = ({
       </div>
       <button
         type="submit"
-        className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
-      >
+        disabled={sending}
+        className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
         Update Item
       </button>
     </form>

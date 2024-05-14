@@ -31,6 +31,7 @@ const ItemFilter = (props: any) => {
   function filterOptions() {
     setLoading(true);
     const url = new URL(window.location.href);
+    url.searchParams.delete('page');
     url.searchParams.set('category', category);
     url.searchParams.set('price', price);
     window.location.href = url.toString();
@@ -40,6 +41,7 @@ const ItemFilter = (props: any) => {
     const url = new URL(window.location.href);
     url.searchParams.delete('category');
     url.searchParams.delete('price');
+    url.searchParams.delete('page');
     window.location.href = url.toString();
   }
 
