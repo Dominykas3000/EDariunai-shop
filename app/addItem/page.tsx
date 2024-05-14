@@ -65,7 +65,6 @@ const AddItem = () => {
   });
 
   const { data: session } = useSession();
-  // console.log(session);
 
   async function onSubmit(values: any) {
 
@@ -75,7 +74,12 @@ const AddItem = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ...values,
+        name: values.name,
+        price: values.price,
+        description: values.description,
+        tags: values.tags.split(' '), 
+        stock: values.stock,
+        category: values.category,
         photoLink,
         sellerId: session?.user?.sellerId,
       })

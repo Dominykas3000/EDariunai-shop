@@ -19,7 +19,7 @@ export default async function EditItem({ params }: { params: { id: string } }) {
   return (
     <>
       <h2 className="lg:text-3xl sm:text-2xl text-center pb-4">
-        Add New {name}!
+        Update your product  <i>{name}</i> !
       </h2>
       <FormSection>
         <EditItemForm
