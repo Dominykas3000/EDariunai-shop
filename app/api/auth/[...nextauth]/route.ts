@@ -30,7 +30,7 @@ const handler = NextAuth({
         }
         const checkPassword = await compare(
           credentials.password,
-          user.password
+          user.password,
         );
 
         if (!checkPassword || user.email !== credentials.email) {
@@ -66,10 +66,11 @@ const handler = NextAuth({
           if (!userExists) {
             await User.create({
               email: user.email,
-              username: user.name.replace(" ", "").replace(".", ""),
+              username: user.name.replace(".", " "),
               image: user.image,
               privileges: "user",
               role: "buyer",
+              wishlist: [],
             });
           }
 

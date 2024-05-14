@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
     const usernameRegex =
       /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9ĄČĘĖĮŠŲŪąčęėįšųū._]+(?<![_.])$/;
 
-    // Check if the username complies with the regex
     if (!usernameRegex.test(username)) {
       return NextResponse.json(
         { error: "Username does not meet requirements" },
@@ -56,8 +55,10 @@ export async function POST(request: NextRequest) {
     const newUser = await User.create({
       username,
       email,
+      wishlist: [],
       password: await bcrypt.hash(password, 10),
     });
+
     return NextResponse.json({ status: true, user: newUser }, { status: 201 });
   } catch (error) {
     console.error("Error in settings route!", error);

@@ -31,6 +31,30 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
+
+  let wishlistButton = (
+    <button
+      className=" flex justify-center border-solid items-center font-medium align-middle select-none font-sans text-sm text-center border-slate-400 border transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none  py-2 px-4 rounded-lg bg-white  text-gray-900 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full"
+      type="button"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="mr-2 h-4 w-4"
+      >
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+      Wishlist
+    </button>
+  );
+
   const { addToCart, cartItems } = useCart();
 
   const handleAddToCart = (product: Product) => {
@@ -70,6 +94,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </p>
         </div>
       </div>
+      
       <div className="flex justify-between p-6 items-end	min-h-[92px]">
         {product.salePrice ? (
           <div className="flex-col">
@@ -90,25 +115,35 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           Stock: {product.stock}
         </h5>
       </div>
-      <div className="px-6 flex justify-between pb-8 pt-0">
-        <Link href={`/product-page/${encodeURIComponent(product._id)}`}>
-          <button
-            className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-            type="button"
+
+      <div className="px-6 flex justify-between gap-2 pb-2 pt-0">
+        <div className="w-1/2">
+          <Link href={`/product-page/${encodeURIComponent(product._id)}`}>
+            <button
+              className=" w-full align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+              type="button"
+            >
+              Read More
+            </button>
+          </Link>
+        </div>
+
+        <div className="w-1/2">
+          <Button
+            aria-label="Add to cart"
+            size="sm"
+            className="px-6 py-3 rounded-sm max-h-[40px] h-full w-full"
+            onClick={() => {
+              handleAddToCart(product);
+            }}
           >
-            Read More
-          </button>
-        </Link>
-        <Button
-          aria-label="Add to cart"
-          size="sm"
-          className="px-6 py-3 rounded-sm max-h-[40px] h-full"
-          onClick={() => {
-            handleAddToCart(product);
-          }}
-        >
-          <IoCartSharp style={{ "width": "1.75em", "height": "1.75em" }} />
-        </Button>
+            <IoCartSharp style={{ "width": "1.75em", "height": "1.75em" }} />
+          </Button>
+        </div>
+      </div>
+
+      <div className="flex px-6 pb-4 w-full">
+        {wishlistButton}
       </div>
     </div >
   );
