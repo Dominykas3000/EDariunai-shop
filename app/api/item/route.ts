@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/item";
+import Seller from "@/models/seller"; // Import the Seller model
 
 export async function GET(req: NextRequest) {
   const itemId = req.headers.get("data");
@@ -35,6 +36,11 @@ export async function POST(request: NextRequest) {
     sellerId,
     image: photoLink,
     timesVisited: 0,
+  });
+
+  // Add the created item to the seller's storeItems array
+  await Seller.findByIdAndUpdate(sellerId, {
+    $push: { storeItems: item._id },
   });
 
   return NextResponse.json({
@@ -90,7 +96,20 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   const id = req.headers.get("data");
-  await Item.findByIdAndDelete(id);
+
+  // Find the item to get the sellerId before deletion
+  const item = await Item.findById(id);
+  if (item) {
+    const sellerId = item.sellerId;
+
+    // Delete the item
+    await Item.findByIdAndDelete(id);
+
+    // Remove the item from the seller's storeItems array
+    await Seller.findByIdAndUpdate(sellerId, {
+      $pull: { storeItems: id },
+    });
+  }
 
   return NextResponse.json({
     status: true,

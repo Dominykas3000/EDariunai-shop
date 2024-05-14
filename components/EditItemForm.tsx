@@ -24,8 +24,9 @@ const EditItemForm = ({
   image?: string;
 }) => {
 
-  const router = useRouter();
+  const [sending, setSending] = useState(false);
 
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -83,8 +84,8 @@ const EditItemForm = ({
   async function onSubmit(values: any) {
     try {
 
+      setSending(true);
 
-      console.warn('clicked')
       const res = await fetch(`/api/item`, {
         method: "PUT",
         headers: {
@@ -106,12 +107,15 @@ const EditItemForm = ({
       });
 
       if (!res.ok) {
+        setSending(false);
         throw new Error("Failed to update topic");
       }
 
       router.refresh();
+      setSending(false);
       router.push("/seller/dashboard");
     } catch (error) {
+      setSending(false);
       console.log(error);
     }
   };
@@ -316,8 +320,8 @@ const EditItemForm = ({
       </div>
       <button
         type="submit"
-        className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
-      >
+        disabled={sending}
+        className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
         Update Item
       </button>
     </form>
