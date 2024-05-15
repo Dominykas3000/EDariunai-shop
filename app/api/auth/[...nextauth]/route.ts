@@ -50,6 +50,7 @@ const handler = NextAuth({
         session.user.privileges = sessionUser.privileges ?? "user";
         session.user.role = sessionUser.role ?? "buyer";
         session.user.image = sessionUser.image ?? "";
+        session.user.wishlist = sessionUser.wishlist ?? [];
         if (sessionUser.role === "seller") {
           const sellerUser = await Seller.findOne({ creator: sessionUser._id });
           session.user.sellerId = sellerUser?._id.toHexString() ?? "";

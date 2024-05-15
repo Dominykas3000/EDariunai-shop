@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/item";
-import Seller from "@/models/seller"; // Import the Seller model
+import Seller from "@/models/seller";
 
 export async function GET(req: NextRequest) {
   const itemId = req.headers.get("data");

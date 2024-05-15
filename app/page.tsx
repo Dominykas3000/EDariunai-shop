@@ -36,9 +36,20 @@ export default function Home() {
 
         <div className="flex mt-40">
           <Link href="/all-items-page">
-            <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">View all items</button>
+            <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">View all items!</button>
           </Link>
         </div>
+
+
+        {
+          session?.user ? (
+            <div className="flex gap-4 mt-8">
+              <Link href="/wishlist">
+                <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">View Your Wishlist! </button>
+              </Link>
+            </div>
+          ) : ' '
+        }
 
 
         {/* <ProductList /> */}
