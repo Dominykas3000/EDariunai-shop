@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Toaster, toast } from "sonner"
 
 const AddItem = () => {
   const [sending, setSending] = useState(false);
@@ -248,18 +249,21 @@ const AddItem = () => {
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               //console.log("Files: \n", res[0].url);
-              alert("Upload Completed");
+              toast("Upload Completed");
               setPhotoLink(res[0].url)
 
             }}
             onUploadError={(error: Error) => {
               // Do something with the error.
-              alert(`ERROR! ${error.message}`);
+              toast(`ERROR! ${error.message}`);
             }}
           />
           <button
             type="submit"
             disabled={sending}
+            onClick={() => {
+              toast("Item added successfully")
+            }}
             className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
             Add Item
           </button>

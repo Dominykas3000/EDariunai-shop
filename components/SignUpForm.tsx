@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SlClose } from "react-icons/sl";
+import { toast } from 'sonner';
 
 const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -55,8 +56,10 @@ const SignUpForm = () => {
 
     if (response.ok) {
       console.log('Signed up successfully');
+      toast("Signed up successfully!");
       router.push('/authorization');
     } else {
+      toast("Failed to sign up, please try again later.");
       return setErrorMessage(data.error);
     }
   }

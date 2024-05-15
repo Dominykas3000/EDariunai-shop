@@ -4,6 +4,7 @@ import Link from "next/link";
 import { IoCartSharp } from "react-icons/io5";
 import { Button } from "./ui/button";
 import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 interface Product {
   _id: string;
@@ -105,6 +106,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="px-6 py-3 rounded-sm max-h-[40px] h-full"
           onClick={() => {
             handleAddToCart(product);
+            toast("Item added to cart!");
           }}
         >
           <IoCartSharp style={{ "width": "1.75em", "height": "1.75em" }} />

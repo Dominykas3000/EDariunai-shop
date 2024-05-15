@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SlClose } from "react-icons/sl";
+import { toast } from 'sonner';
 
 const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState(String || null);
@@ -40,10 +41,12 @@ const LoginForm = () => {
 
     if (status?.ok) {
       console.log('Logged in successfully')
+      toast("Logged in successfully!");
       router.push('/')
     }
     else {
       setErrorMessage(status?.error || '')
+      toast("Failed to log in, please try again later.");
     }
 
   }
