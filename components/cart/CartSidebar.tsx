@@ -85,14 +85,7 @@ function CartItem({ item }: { item: any }) {
   return (
     <div className="flex items-center space-x-4">
       <div className="relative h-16 w-16 overflow-hidden rounded">
-        <img
-          //   src={item.product.image}
-          src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-          alt={item.product.title}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="absolute object-cover"
-          loading="lazy"
-        />
+        <img src={item.product.image} />
       </div>
       <div className="flex flex-1 flex-col gap-1 self-start text-sm">
         <span className="line-clamp-1">{item.product.title}</span>
@@ -112,6 +105,22 @@ function CartItem({ item }: { item: any }) {
 export default function CartSidebar() {
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const handleCheckout = () => {
+    fetch("/api/checkoutsession", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: cartItems }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("dayareturned", data);
+
+        window.location.href = data.checkoutUrl;
+      });
+  };
 
   return (
     <Sheet>
@@ -138,7 +147,7 @@ export default function CartSidebar() {
             </ScrollArea>
           </div>
         )}
-        <Button variant="default" size="sm">
+        <Button variant="default" size="sm" onClick={handleCheckout}>
           Checkout
         </Button>
       </SheetContent>
