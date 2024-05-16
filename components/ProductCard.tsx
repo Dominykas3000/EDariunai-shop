@@ -140,7 +140,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </h5>
 
         <h6 className="block mb-2 font-sans text-sm antialiased font-normal leading-snug tracking-normal text-blue-gray-900">
-          By: {product.sellerId ? product.sellerId.name : ""}
+          {product.sellerId.name ?
+            (
+              <Link
+                href={`/seller-page/${encodeURIComponent(product.sellerId._id)}`}>
+                {"By: " + product.sellerId.name}
+              </Link>
+            ) : ''
+          }
         </h6>
         <div className="min-h-[50px] max-h-[50px] overflow-hidden text-ellipsis">
           <p className=" block font-sans antialiased text-xs"
