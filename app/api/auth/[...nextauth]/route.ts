@@ -30,7 +30,7 @@ const handler = NextAuth({
         }
         const checkPassword = await compare(
           credentials.password,
-          user.password
+          user.password,
         );
 
         if (!checkPassword || user.email !== credentials.email) {
@@ -50,6 +50,7 @@ const handler = NextAuth({
         session.user.privileges = sessionUser.privileges ?? "user";
         session.user.role = sessionUser.role ?? "buyer";
         session.user.image = sessionUser.image ?? "";
+        session.user.wishlist = sessionUser.wishlist ?? [];
         if (sessionUser.role === "seller") {
           const sellerUser = await Seller.findOne({ creator: sessionUser._id });
           session.user.sellerId = sellerUser?._id.toHexString() ?? "";
@@ -66,10 +67,11 @@ const handler = NextAuth({
           if (!userExists) {
             await User.create({
               email: user.email,
-              username: user.name.replace(" ", "").replace(".", ""),
+              username: user.name.replace(".", " "),
               image: user.image,
               privileges: "user",
               role: "buyer",
+              wishlist: [],
             });
           }
 

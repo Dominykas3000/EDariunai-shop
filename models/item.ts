@@ -60,6 +60,10 @@ const ItemSchema = new Schema({
     type: Number,
     default: 0,
   },
+  wishlistCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Item = models.Item || model("Item", ItemSchema);

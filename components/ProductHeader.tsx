@@ -1,6 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useCart } from "@/context/CartContext";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface Product {
   _id: string;
@@ -28,9 +31,88 @@ interface ProductProps {
 
 const ProductHeader = ({ product }: ProductProps) => {
 
+  const [wishlisted, setWishlisted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    const fetchWishlisted = async () => {
+      if (!session) return;
+
+      try {
+        const response = await fetch("/api/wishlist", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "data": JSON.stringify({
+              productId: product._id,
+              userId: session.user?.id ?? ""
+            })
+          }
+        });
+        const data = await response.json();
+        setWishlisted(data.wishlisted);
+      } catch (error) {
+        console.error("Error checking wishlist:", error);
+      }
+    };
+
+    fetchWishlisted();
+  }, [session, product._id]);
+
+  function handleWishlist() {
+    setLoading(true);
+
+    fetch("/api/wishlist", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: product._id,
+        userId: session?.user?.id ?? "",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          setWishlisted(!wishlisted);
+        }
+        wishlisted ? toast("Item removed from wishlist!") : toast("Item added to wishlist!");
+        setLoading(false);
+      });
+  }
+
+
+  let wishlistButton = (
+    <button
+      className={`flex justify-center border-solid items-center font-medium align-middle select-none font-sans text-sm text-center border-slate-400 border transition-all px-5 py-2.5 rounded-lg bg-white text-gray-900 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full ${wishlisted ? " text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" : ""
+        }`}
+      type="button"
+      disabled={!session?.user || loading}
+      onClick={handleWishlist} >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="mr-2 h-4 w-4"
+      >
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+      Wishlist
+    </button >
+  );
+
   const { addToCart, cartItems } = useCart();
   const handleAddToCart = (product: Product) => {
     addToCart(product);
+    toast("Item added to cart!");
   }
 
   return (
@@ -40,9 +122,9 @@ const ProductHeader = ({ product }: ProductProps) => {
           <img
             className="rounded-xl object-contain w-full h-auto"
             src={
-            product.image ? product.image :
-            "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
-          }
+              product.image ? product.image :
+                "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
+            }
             alt="card-image" />
         </div>
       </div>
@@ -97,7 +179,7 @@ const ProductHeader = ({ product }: ProductProps) => {
 
         </div>
 
-        <div className="flex gap-6 w-full">
+        <div className="flex flex-col gap-6 w-full">
 
           <button
             className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
@@ -107,6 +189,8 @@ const ProductHeader = ({ product }: ProductProps) => {
           >
             Add to cart
           </button>
+
+          {wishlistButton}
 
         </div>
 

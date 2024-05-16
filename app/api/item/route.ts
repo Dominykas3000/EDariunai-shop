@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/item";
-import Seller from "@/models/seller"; // Import the Seller model
+import Seller from "@/models/seller";
 
 export async function GET(req: NextRequest) {
   const itemId = req.headers.get("data");
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
     sellerId,
     photoLink,
     timesVisited,
+    wishlistCount,
   } = await request.json();
   console.log("photolink\n\n\n", photoLink);
   const item = await Item.create({
@@ -36,6 +37,7 @@ export async function POST(request: NextRequest) {
     sellerId,
     image: photoLink,
     timesVisited: 0,
+    wishlistCount: 0,
   });
 
   // Add the created item to the seller's storeItems array

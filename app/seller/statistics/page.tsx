@@ -85,7 +85,7 @@ const StatisticsPage = () => {
               <div className="flex gap-2 items-start flex-col">
                 <div>Sold: <b>X</b> times</div>
                 <div>Viewed: <b>{item.timesVisited}</b> times</div>
-                <div>Wishlist: <b>X</b> times</div>
+                <div>Wishlist: <b>{item.wishlistCount}</b> times</div>
               </div>
             </div>
           ))
