@@ -11,6 +11,8 @@ import SessionProvider from "@/utils/SessionProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CartProvider } from "@/context/CartContext";
 
+import { Toaster } from "@/components/ui/sonner";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -43,6 +45,7 @@ export default async function RootLayout({
               <Footer />
             </ThemeProvider>
           </SessionProvider>
+          <Toaster />
         </body>
       </html>
     </CartProvider>

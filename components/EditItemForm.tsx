@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from 'formik';
+import { toast } from "sonner";
 
 const EditItemForm = ({
   id,
@@ -109,14 +110,17 @@ const EditItemForm = ({
       if (!res.ok) {
         setSending(false);
         throw new Error("Failed to update topic");
+        toast("Failed to update item");
       }
 
       router.refresh();
       setSending(false);
       router.push("/seller/dashboard");
+      toast("Item updated successfully!");
     } catch (error) {
       setSending(false);
       console.log(error);
+      toast("Failed to update item");
     }
   };
 

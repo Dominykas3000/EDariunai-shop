@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { SlClose } from "react-icons/sl";
+import { toast } from 'sonner';
 
 
 const SellerForm = () => {
@@ -55,8 +56,10 @@ const SellerForm = () => {
 
     if (response.ok) {
       console.log('Seller created successfully');
+      toast("Seller created successfully!");
       router.push('/');
     } else {
+      toast("Failed to create seller, please try again later.");
       setErrorMessage(data.error);
     }
 

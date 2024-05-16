@@ -1,6 +1,7 @@
 "use client";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function RemoveBtn({ itemId }: { itemId: string }) {
   const router = useRouter();
@@ -18,6 +19,11 @@ export default function RemoveBtn({ itemId }: { itemId: string }) {
 
       if (res.ok) {
         router.refresh();
+        toast("Item deleted successfully");
+      }
+
+      if (!res.ok) {
+        toast("Failed to delete item, please try again later");
       }
     }
   };
