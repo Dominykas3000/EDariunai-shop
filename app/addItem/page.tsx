@@ -84,11 +84,13 @@ const AddItem = () => {
     const data = await response.json();
 
     if (response.ok) {
-      console.log('Item added successfully');
+      // console.log('Item added successfully');
       setSending(false);
       router.push('/seller/dashboard');
+      toast("Item added successfully!");
     } else {
       setSending(false);
+      toast("Error adding item.");
       console.log(data.error);
     }
 
@@ -261,9 +263,6 @@ const AddItem = () => {
           <button
             type="submit"
             disabled={sending}
-            onClick={() => {
-              toast("Item added successfully")
-            }}
             className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
             Add Item
           </button>
