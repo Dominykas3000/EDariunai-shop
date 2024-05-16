@@ -1,6 +1,5 @@
 "use client";
-
-
+import WishlistCards from "@/components/wishlistCard";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -24,7 +23,8 @@ interface Seller {
   name: string;
 }
 
-const WishlistPage = () => {
+export default function WishlistPage({ params }: { params: { id: string } }) {
+
 
   const [wishlisted, setWishlisted] = useState<Product[]>([]);
 
@@ -39,12 +39,13 @@ const WishlistPage = () => {
         headers: {
           "Content-Type": "application/json",
           "data": JSON.stringify({
-            userId: session.user?.id ?? ""
+            userId: params.id ?? ""
           })
         }
       });
       const data = await response.json();
-      setWishlisted(data);
+      setWishlisted(data.wishlist);
+      console.log(data.wishlist)
       console.log(wishlisted)
       return data;
     } catch (error) {
@@ -55,19 +56,29 @@ const WishlistPage = () => {
   useEffect(() => {
 
     fetchWishlisted();
-  }, [session?.user]);
+  }, []);
 
 
   return (
     <section>
       <h1 className="text-3xl font-bold">Your Wishlist</h1>
 
-      <div className="mt-10">
-        <p className="text-xl">Your wishlist is empty</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-20">
+        {
+          wishlisted.length > 0 ?
+            (
+              wishlisted.map((product, index) => (
+                <WishlistCards
+                  key={index}
+                  props={product}
+                />
+              ))
+            )
+            :
+            <p className="text-xl mt-10">Your wishlist is empty</p>
+        }
       </div>
-
     </section>
   )
 }
 
-export default WishlistPage

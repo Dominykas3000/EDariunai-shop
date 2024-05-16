@@ -42,9 +42,10 @@ export default function Home() {
 
 
         {
-          session?.user ? (
+          session?.user?.id ? (
             <div className="flex gap-4 mt-8">
-              <Link href="/wishlist">
+              <Link
+                href={`/wishlist/${encodeURIComponent(session.user.id)}`}>
                 <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">View Your Wishlist! </button>
               </Link>
             </div>

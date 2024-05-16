@@ -29,7 +29,7 @@ interface CartContextValue {
   cartItems: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
-  updateCartItemQuantity: (productId: string, quantity: number) => void;
+  updateCartItemQuantity: (productId: string, quantity: number, stock: any) => void;
   cartTotal: number;
   cartCount: number;
 }
@@ -81,12 +81,19 @@ export const CartProvider = ({ children }: Props) => {
     setCartItems(updatedCartItems);
   };
 
-  const updateCartItemQuantity = (productId: string, quantity: number) => {
+  const updateCartItemQuantity = (productId: string, quantity: number, stock: any) => {
+    console.log("kakaliala", productId, quantity, stock);
+
     const existingCartItemIndex = cartItems.findIndex(
       (item) => item.product._id == productId
     );
     if (existingCartItemIndex !== -1) {
       const existingCartItem = cartItems[existingCartItemIndex];
+
+      if (quantity > stock) {
+        quantity = stock; // Set quantity to stock's value
+      }
+      
       const updatedCartItem = {
         ...existingCartItem,
         quantity,

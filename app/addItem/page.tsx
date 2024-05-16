@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Toaster, toast } from "sonner"
 
 const AddItem = () => {
   const [sending, setSending] = useState(false);
@@ -83,11 +84,13 @@ const AddItem = () => {
     const data = await response.json();
 
     if (response.ok) {
-      console.log('Item added successfully');
+      // console.log('Item added successfully');
       setSending(false);
       router.push('/seller/dashboard');
+      toast("Item added successfully!");
     } else {
       setSending(false);
+      toast("Error adding item.");
       console.log(data.error);
     }
 
@@ -248,13 +251,13 @@ const AddItem = () => {
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               //console.log("Files: \n", res[0].url);
-              alert("Upload Completed");
+              toast("Upload Completed");
               setPhotoLink(res[0].url)
 
             }}
             onUploadError={(error: Error) => {
               // Do something with the error.
-              alert(`ERROR! ${error.message}`);
+              toast(`ERROR! ${error.message}`);
             }}
           />
           <button

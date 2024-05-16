@@ -3,6 +3,7 @@
 import { useCart } from "@/context/CartContext";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface Product {
   _id: string;
@@ -31,6 +32,7 @@ interface ProductProps {
 const ProductHeader = ({ product }: ProductProps) => {
 
   const [wishlisted, setWishlisted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -59,6 +61,7 @@ const ProductHeader = ({ product }: ProductProps) => {
   }, [session, product._id]);
 
   function handleWishlist() {
+    setLoading(true);
 
     fetch("/api/wishlist", {
       method: "PATCH",
@@ -75,6 +78,8 @@ const ProductHeader = ({ product }: ProductProps) => {
         if (data.status) {
           setWishlisted(!wishlisted);
         }
+        wishlisted ? toast("Item removed from wishlist!") : toast("Item added to wishlist!");
+        setLoading(false);
       });
   }
 
@@ -84,7 +89,7 @@ const ProductHeader = ({ product }: ProductProps) => {
       className={`flex justify-center border-solid items-center font-medium align-middle select-none font-sans text-sm text-center border-slate-400 border transition-all px-5 py-2.5 rounded-lg bg-white text-gray-900 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full ${wishlisted ? " text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" : ""
         }`}
       type="button"
-      disabled={!session || !session.user}
+      disabled={!session?.user || loading}
       onClick={handleWishlist} >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +112,7 @@ const ProductHeader = ({ product }: ProductProps) => {
   const { addToCart, cartItems } = useCart();
   const handleAddToCart = (product: Product) => {
     addToCart(product);
+    toast("Item added to cart!");
   }
 
   return (
