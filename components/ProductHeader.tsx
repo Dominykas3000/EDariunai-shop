@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useCart } from "@/context/CartContext";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -164,7 +165,10 @@ const ProductHeader = ({ product }: ProductProps) => {
 
           <div className="h-[21px] mb-[1.5rem]">
             <h1 className="font-bold text-[1.5rem] leading-[1.4]">
-              By: {product.sellerId.name}
+              <Link
+                href={`/seller-page/${encodeURIComponent(product.sellerId._id)}`}>
+                {"By: " + product.sellerId.name}
+              </Link>
             </h1>
           </div>
 
@@ -195,7 +199,11 @@ const ProductHeader = ({ product }: ProductProps) => {
         </div>
 
       </div>
+
+
+
     </section>
+
   )
 }
 

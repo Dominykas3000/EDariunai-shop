@@ -22,6 +22,12 @@ const SellerSchema = new Schema({
       ref: "Item",
     },
   ],
+  sellerReviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "SellerReview",
+    },
+  ],
 });
 
 const Seller = models.Seller || model("Seller", SellerSchema);

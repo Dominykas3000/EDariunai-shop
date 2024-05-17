@@ -1,12 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import Seller from "@/models/seller";
-import Item from "@/models/item";
 import ProductCard from "@/components/ProductCard";
+import SellerReview from "@/components/SellerReview";
+import { connectToDatabase } from "@/utils/database";
 
 
 const getSellerById = async ({ sellerId }: { sellerId: string }) => {
   try {
-    const seller = await Seller.findById(sellerId).populate("creator").populate("storeItems");
+
+    connectToDatabase();
+
+    const seller = await Seller.findById(sellerId)
+      .populate("creator")
+      .populate("storeItems")
+      .populate("sellerReviews");
+
     return JSON.stringify(seller);
   } catch (error) {
     console.error("Failed to fetch item", error);
@@ -16,6 +24,8 @@ const getSellerById = async ({ sellerId }: { sellerId: string }) => {
 export default async function SellerPage({ params }: { params: { id: string } }) {
 
   const seller = await getSellerById({ sellerId: params.id })
+
+
   return (
     <section className=" mb-6 justify-start w-full flex px-4 flex-col gap-6">
       <div className="w-full flex flex-row max-h-[450px]">
@@ -42,6 +52,22 @@ export default async function SellerPage({ params }: { params: { id: string } })
       </div>
 
       <div className="mt-20">
+        <h1 className="font-bold text-[2.5rem] leading-[1.2]">Reviews:</h1>
+        <div className="flex flex-row flex-wrap gap-4">
+          {seller ? JSON.parse(seller).sellerReviews.map((review: any) => {
+            return (
+              <div key={review._id} className="p-4 bg-gray-100 rounded-xl w-1/3">
+                <h2 className="font-bold text-[1.5rem]">{review.review}</h2>
+                <p className="text-[1rem]">{review.rating}/5</p>
+              </div>
+            );
+          }) : "no data"}
+        </div>
+
+        {seller && <SellerReview props={JSON.parse(seller)._id} />}
+      </div>
+
+      <div className="mt-20">
         <h1 className="font-bold text-[2.5rem] leading-[1.2]">Products</h1>
 
         <div className="flex flex-row flex-wrap gap-4">
@@ -63,4 +89,4 @@ export default async function SellerPage({ params }: { params: { id: string } })
 
   );
 
-}
+} 

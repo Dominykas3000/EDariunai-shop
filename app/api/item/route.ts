@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
     category,
     sellerId,
     photoLink,
+    itemReviews,
     timesVisited,
     wishlistCount,
   } = await request.json();
@@ -36,9 +37,12 @@ export async function POST(request: NextRequest) {
     category,
     sellerId,
     image: photoLink,
+    itemReviews: [],
     timesVisited: 0,
     wishlistCount: 0,
   });
+
+  console.log("item", item);
 
   // Add the created item to the seller's storeItems array
   await Seller.findByIdAndUpdate(sellerId, {
@@ -67,6 +71,8 @@ export async function PUT(req: NextRequest) {
     newCategory: category,
     sellerId,
     timesVisited,
+    itemReviews,
+    wishlistCount,
   } = await req.json();
 
   // TODO: Implement saleActive logic
@@ -88,6 +94,7 @@ export async function PUT(req: NextRequest) {
     category,
     sellerId,
     timesVisited,
+    itemReviews,
   });
 
   return NextResponse.json({

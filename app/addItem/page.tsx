@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Toaster, toast } from "sonner"
+import { toast } from "sonner"
 
 const AddItem = () => {
   const [sending, setSending] = useState(false);

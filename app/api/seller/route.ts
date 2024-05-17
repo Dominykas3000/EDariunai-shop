@@ -72,7 +72,10 @@ export const POST = async (request: NextRequest) => {
       name: name,
       description: description,
       storeItems: [],
+      sellerReviews: [],
     });
+
+    console.log("seller", seller);
 
     userCreator.role = "seller";
 
