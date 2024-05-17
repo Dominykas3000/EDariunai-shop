@@ -40,7 +40,6 @@ const UserSchema = new Schema({
     default: [],
   },
 
-  
   phoneNumber: {
     type: String,
   },

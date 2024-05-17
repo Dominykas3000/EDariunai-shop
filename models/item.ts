@@ -64,6 +64,12 @@ const ItemSchema = new Schema({
     type: Number,
     default: 0,
   },
+  itemReviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ItemReview",
+    },
+  ],
 });
 
 const Item = models.Item || model("Item", ItemSchema);
