@@ -36,16 +36,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Search:** Users can efficiently find products on the platform.
 - [x] **Filter:** Various filters are available for users to narrow down their search.
 - [x] **Cart:** Shoppers can easily manage their selections in the cart.
-- [ ] **Payment:** Platform supports secure and convenient payment methods.
+- [x] **Payment:** Platform supports secure and convenient payment methods.
 
 ## Iteration 3: Enriching Buyer Experience
 ### Tasks:
-- [ ] **Light/Dark Mode:** Users can toggle between light and dark modes.
-- [ ] **Wishlist:** Shoppers can create a wishlist of desired items.
+- [x] **Light/Dark Mode:** Users can toggle between light and dark modes.
+- [x] **Wishlist:** Shoppers can create a wishlist of desired items.
+- [x] **Toast Notifications:** Instant feedback is provided to users through toast notifications.
+- [x] **Popular Items List:** Showcases trending products.
+- [x] **Review Items/Sellers:** Users can leave reviews for products and sellers.
 - [ ] **Price Negotiation:** Allows for price negotiation between buyers and sellers.
-- [ ] **Toast Notifications:** Instant feedback is provided to users through toast notifications.
-- [ ] **Popular Items List:** Showcases trending products.
-- [ ] **Review Items/Sellers:** Users can leave reviews for products and sellers.
 
 ## Iteration 4: Scaling and Refinement
 ### Tasks:
