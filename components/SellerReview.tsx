@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 
 
-const SellerReview = (props: any) => {
+const SellerReviews = (props: any) => {
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -109,4 +109,4 @@ const SellerReview = (props: any) => {
   )
 }
 
-export default SellerReview
+export default SellerReviews
