@@ -112,10 +112,6 @@ const Navbar = () => {
     }
   }, [session]);
 
-  const openShoppingCart = () => {
-    console.log("hello");
-  };
-
   const getCartItemAmount = () => { };
   return (
     <div className="bg-white">
