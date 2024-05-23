@@ -10,7 +10,7 @@ export default function SellerSideBar() {
         <div>
           <Link
             href="/seller/dashboard"
-            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700"
+            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700 dark:text-white"
           >
             Dashboard
           </Link>
@@ -19,7 +19,7 @@ export default function SellerSideBar() {
         <div>
           <Link
             href="/seller/orders"
-            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700"
+            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700 dark:text-white"
           >
             Orders
           </Link>
@@ -27,7 +27,7 @@ export default function SellerSideBar() {
         <div>
           <Link
             href="/seller/statistics"
-            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700"
+            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700 dark:text-white"
           >
             Statistics
           </Link>

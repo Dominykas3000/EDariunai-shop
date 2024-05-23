@@ -116,7 +116,7 @@ function SearchComponent() {
       {
         searchTerm.trim() !== '' && searchResults.length > 0 ?
           (
-            <ul className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+            <ul className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg dark:bg-gray-700'>
               {searchResults.map((item: Product, index: number) => (
                 <li className='flex flex-row justify-between gap-2 border-b border-zinc-800 mb-2 px-3' key={index}>
                   <div className='flex flex-col mb-2'>
@@ -125,7 +125,7 @@ function SearchComponent() {
                   </div>
                   <div className='flex justify-center items-center'>
                     <Link href={`/product-page/${encodeURIComponent(item._id)}`}>
-                      <button className='bg-gray-700 text-white rounded-md px-2 py-1'>
+                      <button className='bg-gray-700 dark:bg-gray-900 text-white rounded-md px-2 py-1'>
                         Read more
                       </button>
                     </Link>
