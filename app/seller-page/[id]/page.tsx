@@ -44,8 +44,14 @@ export default async function SellerPage({ params }: { params: { id: string } })
     <section
       className=" mb-6 justify-start w-full flex px-4 flex-col gap-6 relative">
 
+      {sellerString.flagged && (
+        <div className="bg-red-500 text-white p-2 rounded-md w-fit">
+          This seller is not fully trusted.
+        </div>
+      )}
+
       <div className="absolute top-[-60px] right-[35px]">
-        <AdminControls />
+        <AdminControls sellerId={params.id} />
       </div>
 
       <div className="w-full flex flex-row max-h-[450px]">
