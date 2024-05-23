@@ -3,6 +3,7 @@ import ProductReviews from "@/components/ProductReviews";
 import Item from "@/models/item";
 import Seller from "@/models/seller";
 import ItemReview from "@/models/itemreview";
+import {DeleteReview} from "@/components/DeleteReview";
 
 const getItemById = async ({ itemId }: { itemId: string }) => {
   try {
@@ -50,6 +51,7 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
                   className="p-4 bg-gray-100 rounded-xl w-1/3">
                   <h2 className="font-bold text-[1.5rem]">{review.review}</h2>
                   <p className="text-[1rem]">{review.rating}/5</p>
+                  <DeleteReview reviewId={review._id}/>
                 </div>
               )
             })
