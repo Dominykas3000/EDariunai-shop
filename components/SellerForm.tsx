@@ -70,14 +70,14 @@ const SellerForm = () => {
       className="space-y-6"
       onSubmit={formik.handleSubmit}
     >
-      <h5 className="text-xl font-medium text-gray-900 ">
+      <h5 className="dark:text-white text-xl font-medium text-gray-900 ">
         Complete this form:
       </h5>
 
       <div className="flex flex-col">
         <label
           htmlFor="name"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Username:
         </label>
         <input type="text"
@@ -99,7 +99,7 @@ const SellerForm = () => {
       <div className="flex flex-col">
         <label
           htmlFor="username"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Description:
         </label>
         <textarea
@@ -131,7 +131,7 @@ const SellerForm = () => {
 
       <button
         type="submit"
-        className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Start selling
       </button>
 
