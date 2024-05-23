@@ -45,7 +45,9 @@ export default async function ItemPage({ params }: { params: { id: string } }) {
           {
             reviews.length > 0 ? reviews.map((review: any) => {
               return (
-                <div key={review._id} className="p-4 bg-gray-100 rounded-xl w-1/3">
+                <div
+                  key={review._id}
+                  className="p-4 bg-gray-100 rounded-xl w-1/3">
                   <h2 className="font-bold text-[1.5rem]">{review.review}</h2>
                   <p className="text-[1rem]">{review.rating}/5</p>
                 </div>

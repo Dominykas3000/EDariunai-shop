@@ -6,6 +6,8 @@ import SellerReview from "@/models/sellerreview";
 import ProductCard from "@/components/ProductCard";
 import SellerReviews from "@/components/SellerReview";
 import { connectToDatabase } from "@/utils/connectMongo";
+import AdminControls from "@/components/AdminControls";
+
 
 const getSellerById = async ({ sellerId }: { sellerId: string }) => {
   try {
@@ -29,7 +31,13 @@ export default async function SellerPage({ params }: { params: { id: string } })
   let sellerString = JSON.parse(seller || "");
 
   return (
-    <section className=" mb-6 justify-start w-full flex px-4 flex-col gap-6">
+    <section
+      className=" mb-6 justify-start w-full flex px-4 flex-col gap-6 relative">
+
+      <div className="absolute top-[-60px] right-[35px]">
+        <AdminControls />
+      </div>
+
       <div className="w-full flex flex-row max-h-[450px]">
 
         <div className="w-1/2">
@@ -44,7 +52,6 @@ export default async function SellerPage({ params }: { params: { id: string } })
           <img
             className="rounded-xl object-contain w-full h-auto max-h-[450px]"
             src={
-              // @ts-ignore
               sellerString.creator.image ? sellerString.creator.image :
                 "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
             }
@@ -68,7 +75,7 @@ export default async function SellerPage({ params }: { params: { id: string } })
                   </div>
                 );
               })
-            : "no data"
+              : "no data"
           }
 
         </div>
