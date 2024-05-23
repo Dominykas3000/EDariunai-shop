@@ -132,7 +132,7 @@ const EditItemForm = ({
       <div className='flex flex-col'>
         <label
           htmlFor="name"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Update Product Name:
         </label>
         <input
@@ -155,7 +155,7 @@ const EditItemForm = ({
       <div className='flex flex-col'>
         <label
           htmlFor="price"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Price:
         </label>
         <input
@@ -177,7 +177,7 @@ const EditItemForm = ({
       <div className='flex flex-col'>
         <label
           htmlFor="Description"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Update Description:
         </label>
         <textarea
@@ -198,7 +198,7 @@ const EditItemForm = ({
       <div className='flex flex-col'>
         <label
           htmlFor="tags"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Update Tags:
         </label>
         <input
@@ -220,7 +220,7 @@ const EditItemForm = ({
       <div className="flex flex-col">
         <label
           htmlFor="stock"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Update Stock:
         </label>
         <input
@@ -242,7 +242,7 @@ const EditItemForm = ({
       <div className="flex flex-col">
         <label
           htmlFor="category"
-          className="block mb-2 text-base font-medium text-gray-900 ">
+          className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Category:
         </label>
         <select
@@ -284,7 +284,7 @@ const EditItemForm = ({
         />
       </div> */}
       <div className="flex flex-col">
-        <label className="block mb-2 text-base font-medium text-gray-900 ">
+        <label className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Sale Price:
         </label>
         <input
@@ -297,7 +297,7 @@ const EditItemForm = ({
         />
       </div>
       <div className="flex flex-col">
-        <label className="block mb-2 text-base font-medium text-gray-900 ">
+        <label className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Sale Start Date:
         </label>
         <input
@@ -310,7 +310,7 @@ const EditItemForm = ({
         />
       </div>
       <div>
-        <label className="block mb-2 text-base font-medium text-gray-900 ">
+        <label className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
           Sale End Date:
         </label>
         <input
@@ -325,7 +325,7 @@ const EditItemForm = ({
       <button
         type="submit"
         disabled={sending}
-        className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        className="disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50 w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Update Item
       </button>
     </form>

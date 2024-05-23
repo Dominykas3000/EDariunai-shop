@@ -90,12 +90,12 @@ const navigation = {
 
 const Footer = () => {
   return (
-    <footer className="bg-white" aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">
+    <footer className="bg-white dark:bg-gray-900 dark:text-white" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" className="sr-only dark:text-white">
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 ">
-      <p className="border-t border-gray-900/10 mb-8" />
+        <p className="border-t border-gray-900/10 mb-8 dark:text-white dark:border-white" />
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <img
@@ -103,7 +103,7 @@ const Footer = () => {
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Company name"
             />
-            <p className="text-sm leading-6 text-gray-600">
+            <p className="text-sm leading-6 dark:text-white text-gray-600">
               Making the world a better place through constructing elegant
               hierarchies.
             </p>
@@ -112,7 +112,7 @@ const Footer = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-400 hover:text-gray-500"
+                  className="text-gray-400 hover:text-gray-500 dark:text-white"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
@@ -123,7 +123,7 @@ const Footer = () => {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                <h3 className="text-sm font-semibold leading-6 dark:text-white text-gray-900">
                   Solutions
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
@@ -131,7 +131,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className="text-sm leading-6 text-gray-600 dark:text-white hover:text-gray-900"
                       >
                         {item.name}
                       </a>
@@ -140,7 +140,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                <h3 className="text-sm font-semibold  dark:text-white leading-6 text-gray-900">
                   Support
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
@@ -148,7 +148,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white"
                       >
                         {item.name}
                       </a>
@@ -159,7 +159,7 @@ const Footer = () => {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                <h3 className="text-sm font-semibold leading-6 dark:text-white text-gray-900">
                   Company
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
@@ -167,7 +167,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className="text-sm leading-6 text-gray-600 dark:text-white hover:text-gray-900"
                       >
                         {item.name}
                       </a>
@@ -176,7 +176,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                <h3 className="text-sm dark:text-white font-semibold leading-6 text-gray-900">
                   Legal
                 </h3>
                 <ul role="list" className="mt-6 space-y-4">
@@ -184,7 +184,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+                        className="text-sm leading-6 dark:text-white text-gray-600 hover:text-gray-900"
                       >
                         {item.name}
                       </a>
@@ -196,7 +196,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-900/10 pt-8 sm:mt-8 lg:mt-8">
-          <p className="text-xs leading-5 text-gray-500">
+          <p className="text-xs dark:text-white leading-5 text-gray-500">
             &copy; 2024 Edariunai, Inc. All rights reserved.
           </p>
         </div>

@@ -53,13 +53,13 @@ const ItemFilter = (props: any) => {
         <div className="flex flex-col">
           <label
             htmlFor="category"
-            className="block mb-2 text-base font-medium text-gray-900">
+            className="block mb-2 text-base font-medium text-gray-900 dark:text-white">
             Category:
           </label>
           <select
             id="category"
             required
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400"
+            className=" bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400"
             value={searchParams.category && category == '' ? searchParams.category : category}
             onChange={() => categoryValue()}
           >
@@ -77,7 +77,7 @@ const ItemFilter = (props: any) => {
         <div className="flex flex-col">
           <label
             htmlFor="price"
-            className="block mb-2 text-base font-medium text-gray-900">
+            className="dark:text-white block mb-2 text-base font-medium text-gray-900">
             Maximum Price:
           </label>
           <input
@@ -90,7 +90,7 @@ const ItemFilter = (props: any) => {
         </div>
 
         <button
-          className="bg-gray-900 text-white font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
+          className="bg-gray-900 text-white font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800"
           onClick={() => filterOptions()}
           disabled={category == '' && price == '' || loading}
 
@@ -100,7 +100,7 @@ const ItemFilter = (props: any) => {
 
 
         <button
-          className="bg-white bg-gray-900 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900  dark:focus:ring-gray-800"
+          className="bg-white dark:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900  dark:focus:ring-gray-800"
           onClick={() => clearFilters()}
         >
           Clear Filters
