@@ -50,7 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Iteration 4: Scaling and Refinement
 ### Tasks:
 - [ ] **Freeze Account (Admin):** Administrators can freeze user accounts.
-- [ ] **Delete Reviews (Admin):** Admins can manage reviews on the platform.
+- [x] **Delete Reviews (Admin):** Admins can manage reviews on the platform.
 - [ ] **Flag Users (Admin):** Admins can flag users for further investigation.
 - [ ] **View Order History:** Users can track and review their order history.
 - [ ] **Items Categorization:** Products on the platform are categorized systematically.
