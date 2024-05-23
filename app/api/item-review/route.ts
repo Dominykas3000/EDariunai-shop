@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
     if (!userId || !itemId || !rating || !review) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -68,6 +68,35 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error }, { status: 500 });
   }
 };
+
+// delete
+export const DELETE = async (request: NextRequest) => {
+  connectToDatabase();
+
+  try {
+    const reviewId = request.headers.get("data");
+    console.log("reviewId", reviewId);
+
+    if (!reviewId)
+      return NextResponse.json(
+        { error: "No review ID provided" },
+        { status: 400 }
+      );
+
+    const review = await ItemReview.findById(reviewId);
+    console.log("review", review);
+
+    if (!review)
+      return NextResponse.json({ error: "Review not found" }, { status: 404 });
+
+    await ItemReview.findByIdAndDelete(reviewId);
+
+    return NextResponse.json({ message: "Review deleted successfully" });
+     } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+};
+
 
 export const PUT = async (request: NextRequest) => {
   await connectToDatabase();

@@ -8,6 +8,7 @@ declare module "next-auth" {
       id: string;
       role: "buyer" | "seller";
       sellerId?: string;
+      privileges: any;
     } & DefaultSession["user"];
   }
 }
