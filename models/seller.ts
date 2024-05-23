@@ -28,6 +28,10 @@ const SellerSchema = new Schema({
       ref: "SellerReview",
     },
   ],
+  flagged: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Seller = models.Seller || model("Seller", SellerSchema);

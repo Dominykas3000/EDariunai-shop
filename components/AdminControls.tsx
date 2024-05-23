@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import router from "next/router";
 
 
-const AdminControls = () => {
+const AdminControls = ({ sellerId }: { sellerId: any }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: session } = useSession();
@@ -15,6 +18,25 @@ const AdminControls = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleFlagSeller = async () => {
+    try{
+      const response = await fetch(`/api/admin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sellerId })
+      })
+
+      if (response.ok) {
+        toast('Seller flag status updated');
+      } else {
+        toast('Error flagging seller');
+      }
+    } catch (error) {
+        console.error('Error flagging seller', error)
+    }
+  };
 
   let adminDropDown = (
     <div className="relative inline-block text-left">
@@ -27,7 +49,7 @@ const AdminControls = () => {
           <ul className="border absolute right-0 mt-2 w-56 rounded-md shadow-sm bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 top-[35px]">
 
             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <a href="/admin/seller/create">Create Seller</a>
+              <button onClick={handleFlagSeller}>Change Flag Status</button>
             </li>
 
             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
