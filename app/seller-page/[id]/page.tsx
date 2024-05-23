@@ -25,6 +25,16 @@ const getSellerById = async ({ sellerId }: { sellerId: string }) => {
   }
 };
 
+const getReviewerName = async (reviewerId: string) => {
+  try {
+    const reviewer = await User.findById(reviewerId);
+    console.log(reviewer);
+    return reviewer.username;
+  } catch (error) {
+    console.error("Failed to fetch reviewer", error);
+  }
+}
+
 export default async function SellerPage({ params }: { params: { id: string } }) {
 
   const seller = await getSellerById({ sellerId: params.id })
@@ -69,9 +79,16 @@ export default async function SellerPage({ params }: { params: { id: string } })
             seller ?
               sellerString.sellerReviews.map((review: any) => {
                 return (
-                  <div key={review._id} className="p-4 bg-gray-100 rounded-xl w-1/3">
-                    <h2 className="font-bold text-[1.5rem]">{review.review}</h2>
-                    <p className="text-[1rem]">{review.rating}/5</p>
+                  <div key={review._id} className="p-4 bg-gray-100 rounded-xl dark:bg-slate-800 w-1/3">
+                    <p className="text-[1rem] font-bold">
+                      Reviewer: {getReviewerName(review.reviewer)}
+                    </p>
+                    <p className="text-[1rem]">
+                      <b>Rating:</b>{" "}{review.rating}/5
+                    </p>
+                    <h2 className=" text-[0.75rem]">
+                      {review.review}
+                    </h2>
                   </div>
                 );
               })

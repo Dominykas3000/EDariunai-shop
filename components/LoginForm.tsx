@@ -56,9 +56,9 @@ const LoginForm = () => {
       onSubmit={formik.handleSubmit}
       className="space-y-6"
     >
-      <h5 className="text-xl font-medium text-gray-900 ">Log in: </h5>
+      <h5 className="text-xl font-medium text-gray-900 dark:text-white ">Log in: </h5>
       <div className='flex flex-col'>
-        <label htmlFor="email" className="block mb-2 text-base font-medium text-gray-900 ">Your email:</label>
+        <label htmlFor="email" className=" dark:text-white block mb-2 text-base font-medium text-gray-900 ">Your email:</label>
         <input
           type="email"
           id="email"
@@ -76,7 +76,7 @@ const LoginForm = () => {
         }
       </div>
       <div>
-        <label htmlFor="password" className="block mb-2 text-base font-medium text-gray-900 ">Your password:</label>
+        <label htmlFor="password" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Your password:</label>
         <input
           type="password"
           id="password"
@@ -97,17 +97,17 @@ const LoginForm = () => {
 
       {
         errorMessage ?
-            <div className='text-red-500 text-m flex items-center gap-2'>
-              <SlClose/>
-              {errorMessage}
-            </div>
+          <div className='text-red-500 text-m flex items-center gap-2'>
+            <SlClose />
+            {errorMessage}
+          </div>
           :
-            null
+          null
       }
 
       <button
         type="submit"
-        className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+        className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Login
       </button>
 
