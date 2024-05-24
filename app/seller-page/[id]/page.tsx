@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import SellerReviews from "@/components/SellerReview";
 import { connectToDatabase } from "@/utils/connectMongo";
 import AdminControls from "@/components/AdminControls";
+import { DeleteSellerReview } from "@/components/DeleteSellerReview";
 
 
 const getSellerById = async ({ sellerId }: { sellerId: string }) => {
@@ -60,7 +61,6 @@ export default async function SellerPage({ params }: { params: { id: string } })
           <h1 className="font-bold text-[2.5rem] leading-[1.2]">
             Seller: {sellerString.name ? sellerString.name : "no data"}
           </h1>
-
           <p className="text-[1.5rem]">Description: {seller ? sellerString.description : "no data"}</p>
         </div>
 
@@ -95,6 +95,7 @@ export default async function SellerPage({ params }: { params: { id: string } })
                     <h2 className=" text-[0.75rem]">
                       {review.review}
                     </h2>
+                    <DeleteSellerReview reviewId={review._id} />
                   </div>
                 );
               })
