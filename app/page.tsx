@@ -7,6 +7,7 @@ export default function Home() {
 
   const [providers, setProviders] = useState<any | null>(null);
   const { data: session } = useSession();
+  const isAdmin = session?.user?.privileges == "admin";
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -60,6 +61,15 @@ export default function Home() {
           </Link>
         </div>
 
+        {isAdmin ? (
+          <div className="flex mt-4">
+            <Link href="/all-users">
+              <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                View all users!
+              </button>
+            </Link>
+          </div>
+        ) : null}
         {/* <ProductList /> */}
       </div>
     </section >
