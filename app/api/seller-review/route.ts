@@ -107,3 +107,30 @@ export const PUT = async (request: NextRequest) => {
     return NextResponse.json({ error }, { status: 500 });
   }
 };
+
+export const DELETE = async (request: NextRequest) => {
+  await connectToDatabase();
+  try {
+    const reviewId = request.headers.get("data");
+    console.log("reviewId", reviewId);
+
+    if (!reviewId)
+      return NextResponse.json(
+        { error: "No review ID provided" },
+        { status: 400 },
+      );
+
+    const review = await SellerReview.findById(reviewId);
+    console.log("review", review);
+
+    if (!review)
+      return NextResponse.json({ error: "Review not found" }, { status: 404 });
+
+    await SellerReview.findByIdAndDelete(reviewId);
+
+    return NextResponse.json({ message: "Review deleted successfully" });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+    
+  }
+};

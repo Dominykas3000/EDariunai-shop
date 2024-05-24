@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 
-export function DeleteReview({ reviewId }: { reviewId: string }) {
+export function DeleteSellerReview({ reviewId }: { reviewId: string }) {
     const { data: session } = useSession();
     const isAdmin = session?.user?.privileges == "admin";
 
@@ -12,7 +12,7 @@ export function DeleteReview({ reviewId }: { reviewId: string }) {
         console.log("reviewId", reviewId);
         if (confirm("Are you sure you want to delete this review?")) {
 
-        const res = await fetch(`/api/item-review`, {
+        const res = await fetch(`/api/seller-review`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
