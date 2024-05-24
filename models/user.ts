@@ -47,6 +47,11 @@ const UserSchema = new Schema({
   image: {
     type: String,
   },
+
+  frozen: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = models.User || model("User", UserSchema);

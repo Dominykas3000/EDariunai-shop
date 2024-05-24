@@ -37,6 +37,10 @@ const handler = NextAuth({
           throw new Error("Invalid email or password!");
         }
 
+        if (user.frozen) {
+          throw new Error("Account is frozen!");
+        }
+
         return user;
       },
     }),
