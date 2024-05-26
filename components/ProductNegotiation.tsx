@@ -1,6 +1,8 @@
 'use client';
 import { useState } from "react";
 import { useFormik } from 'formik';
+import { toast } from "sonner";
+
 
 interface Product {
   _id: string;
@@ -53,6 +55,7 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
       formik.resetForm();
       setSubmitting(false);
       handleCloseModal();
+      toast.success('Offer submitted successfully');
 
     } else {
       setSubmitting(false);
@@ -97,7 +100,8 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
   return (
     <>
       <button
-        className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-base px-5 py-2.5 text-center"
+        disabled={!userId}
+        className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-base px-5 py-2.5 text-center disabled:bg-gray-600 disabled:cursor-not-allowed"
         onClick={handleOpenModal}
       >
         Offer New Price

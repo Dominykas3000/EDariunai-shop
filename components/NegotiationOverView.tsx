@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface Product {
   _id: string;
@@ -45,9 +46,9 @@ const NegotiationOverView = ({ product }: ProductNegotiationProps) => {
     setSubmitting(false);
 
     if (response.ok) {
-      // Filter out the negotiation that was accepted or declined
       const updatedNegotiations = negotiations.filter(n => n._id !== negotiationId);
       setNegotiations(updatedNegotiations);
+      toast.success(data.message);
     } else {
       console.error(`Error: ${data.message}`);
     }
