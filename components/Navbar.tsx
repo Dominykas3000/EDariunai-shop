@@ -106,12 +106,9 @@ const Navbar = () => {
                   <div className="flow-root">
                     <AuthButton inNav={true} />
 
-                    <h2>hhere</h2>
-
-
                     {isSeller ? (
                       <Button>
-                        <Link href="/dashboard">Seller Dashboard</Link>
+                        <Link href="/seller/dashboard">Seller Dashboard</Link>
                       </Button>
                     ) :
                       <Button>
@@ -132,30 +129,35 @@ const Navbar = () => {
           <div className="bg-gray-900">
             <div className="mx-auto flex  max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
               <div className="flex items-center justify-between max-w-7xl w-full">
-
-                <AuthButton inSideMenu={true} />
+                <div className="xs:hidden md:block">
+                  <AuthButton inSideMenu={true} />
+                </div>
 
                 <SearchBar />
 
                 {
                   session?.user ? (
                     isSeller ? (
-                      <Button>
-                        <Link href="/seller/dashboard">
-                          Seller Dashboard
-                        </Link>
-                      </Button>
+                      <div className="xs:hidden md:block">
+                        <Button>
+                          <Link href="/seller/dashboard">
+                            Seller Dashboard
+                          </Link>
+                        </Button>
+                      </div>
                     ) :
-                      <Button>
-                        <Link href='/seller-form'>Become a seller!</Link>
-                      </Button>
+                      <div className="xs:hidden md:block">
+                        <Button>
+                          <Link href='/seller-form'>Become a seller!</Link>
+                        </Button>
+                      </div>
                   ) : <div></div>
                 }
               </div>
             </div>
-          </div>
+          </div >
           {/* Secondary navigation */}
-          <div className="bg-white">
+          <div  className="bg-white" >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="border-b border-gray-200">
                 <div className="flex h-16 items-center justify-between">
@@ -246,10 +248,10 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </nav>
-      </header>
-    </div>
+          </div >
+        </nav >
+      </header >
+    </div >
   );
 };
 

@@ -70,6 +70,12 @@ const ItemSchema = new Schema({
       ref: "ItemReview",
     },
   ],
+  negotiations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Negotiation",
+    },
+  ],
 });
 
 const Item = models.Item || model("Item", ItemSchema);

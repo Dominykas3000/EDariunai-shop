@@ -28,13 +28,13 @@ function SearchComponent() {
   const [searchButtonPressed, setSearchButtonPressed] = useState(false);
 
   const noSearchResultsDiv = (
-    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] md:w-[calc(100vw-330px)] md:max-w-[500px] xs:max-w-unset xs:w-full z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
       <p className='text-lg font-bold py-2 px-2'>No search results found</p>
     </div>
   );
 
   const searchingDiv = (
-    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
+    <div className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] xs:max-w-unset xs:w-full z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg'>
       <p className='text-lg font-bold py-2 px-2'>Searching...</p>
     </div>
   );
@@ -81,7 +81,7 @@ function SearchComponent() {
   };
 
   return (
-    <div className='flex flex-col py-3 relative w-[calc(100vw-330px)] max-w-[500px]'>
+    <div className='flex flex-col py-3 relative w-[calc(100vw-330px)] max-w-[500px] xs:max-w-unset xs:w-full'>
       <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -116,7 +116,7 @@ function SearchComponent() {
       {
         searchTerm.trim() !== '' && searchResults.length > 0 ?
           (
-            <ul className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg dark:bg-gray-700'>
+            <ul className='absolute bg-white shadow-2xl rounded-m top-[60px] w-[calc(100vw-330px)] max-w-[500px] z-40 overflow-auto max-h-[350px] border border-black rounded-b-lg dark:bg-gray-700 xs:max-w-unset xs:w-full'>
               {searchResults.map((item: Product, index: number) => (
                 <li className='flex flex-row justify-between gap-2 border-b border-zinc-800 mb-2 px-3' key={index}>
                   <div className='flex flex-col mb-2'>
