@@ -45,7 +45,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Toast Notifications:** Instant feedback is provided to users through toast notifications.
 - [x] **Popular Items List:** Showcases trending products.
 - [x] **Review Items/Sellers:** Users can leave reviews for products and sellers.
-- [ ] **Price Negotiation:** Allows for price negotiation between buyers and sellers.
+- [x] **Price Negotiation:** Allows for price negotiation between buyers and sellers.
 
 ## Iteration 4: Scaling and Refinement
 ### Tasks:
@@ -53,5 +53,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Delete Reviews (Admin):** Admins can manage reviews on the platform.
 - [x] **Flag Users (Admin):** Admins can flag users for further investigation.
 - [ ] **View Order History:** Users can track and review their order history.
-- [ ] **Items Categorization:** Products on the platform are categorized systematically.
+- [x] **Items Categorization:** Products on the platform are categorized systematically.
 - [x] **Seller Statistics:** Sellers can access detailed statistics and analytics related to their store performance.
