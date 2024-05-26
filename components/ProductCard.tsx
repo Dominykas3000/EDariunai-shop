@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   useEffect(() => {
     const fetchWishlisted = async () => {
-      if (!session) return;
+      if (!session?.user?.id) return;
 
       try {
         const response = await fetch("/api/wishlist", {
@@ -124,7 +124,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl dark:bg-gray-800 bg-clip-border rounded-xl w-80 h-auto">
+    <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl dark:bg-gray-800 bg-clip-border rounded-xl w-80 h-auto xs:w-full ">
       <div className="mx-4 mb-6 mt-4 shadow-inner rounded-xl shadow-blue-gray-500/40 min-h-[310px] flex justify-center items-center">
         <img
           className="rounded-xl object-contain max-h-[280px]"

@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import ProductNegotiation from "./ProductNegotiation";
 
 interface Product {
   _id: string;
@@ -31,14 +32,13 @@ interface ProductProps {
 }
 
 const ProductHeader = ({ product }: ProductProps) => {
-
   const [wishlisted, setWishlisted] = useState(false);
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
 
   useEffect(() => {
     const fetchWishlisted = async () => {
-      if (!session) return;
+      if (!session?.user?.id) return;
 
       try {
         const response = await fetch("/api/wishlist", {
@@ -47,9 +47,9 @@ const ProductHeader = ({ product }: ProductProps) => {
             "Content-Type": "application/json",
             "data": JSON.stringify({
               productId: product._id,
-              userId: session.user?.id ?? ""
-            })
-          }
+              userId: session.user?.id ?? "",
+            }),
+          },
         });
         const data = await response.json();
         setWishlisted(data.wishlisted);
@@ -61,7 +61,7 @@ const ProductHeader = ({ product }: ProductProps) => {
     fetchWishlisted();
   }, [session, product._id]);
 
-  function handleWishlist() {
+  const handleWishlist = () => {
     setLoading(true);
 
     fetch("/api/wishlist", {
@@ -82,7 +82,13 @@ const ProductHeader = ({ product }: ProductProps) => {
         wishlisted ? toast("Item removed from wishlist!") : toast("Item added to wishlist!");
         setLoading(false);
       });
-  }
+  };
+
+  const { addToCart, cartItems } = useCart();
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+    toast("Item added to cart!");
+  };
 
 
   let wishlistButton = (
@@ -110,18 +116,12 @@ const ProductHeader = ({ product }: ProductProps) => {
     </button >
   );
 
-  const { addToCart, cartItems } = useCart();
-  const handleAddToCart = (product: Product) => {
-    addToCart(product);
-    toast("Item added to cart!");
-  }
-
   return (
-    <section className="flex  items-start w-full mb-6 text-xs justify-start  md:flex-row  gap-8 md:px-0  px-4">
+    <section className="flex md:px-0 items-start w-full mb-6 text-xs justify-start gap-8 px-4 xs:flex-col sm:flex-col md:flex-row ">
       <div className="flex flex-col items-start md:w-1/2 w-full">
         <div className="w-full">
           <img
-            className="rounded-xl object-contain w-full h-auto"
+            className="rounded-xl object-contain w-full h-auto max-h-[560px]"
             src={
               product.image ? product.image :
                 "https://assets-global.website-files.com/624380709031623bfe4aee60/6243807090316203124aee66_placeholder-image.svg"
@@ -137,32 +137,6 @@ const ProductHeader = ({ product }: ProductProps) => {
             <h1 className="font-bold text-[2.5rem] leading-[1.2]">{product.name}</h1>
           </div>
 
-          <div className="mb-[1.5rem]">
-
-            {product.salePrice ?
-              (
-                <div className="flex gap-2">
-                  <h1 className="font-bold text-[1.5rem] leading-[1.4] line-through">
-                    ${product.price}
-                  </h1>
-                  <h1 className="text-red-500 font-bold text-[1.5rem] leading-[1.4]">
-                    ${product.salePrice}
-                  </h1>
-                </div>
-              )
-              :
-              (
-                <h1 className="font-bold text-[1.5rem] leading-[1.4]">
-                  ${product.price}
-                </h1>
-              )
-            }
-          </div>
-
-          <div className="mb-[1.5rem] min-h-[72px]">
-            <p className="text-[1rem] leading-[1.4]">{product.description}</p>
-          </div>
-
           <div className="h-[21px] mb-[1.5rem]">
             <h1 className="font-bold text-[1.5rem] leading-[1.4]">
               <Link
@@ -172,18 +146,43 @@ const ProductHeader = ({ product }: ProductProps) => {
             </h1>
           </div>
 
+          <div className="mb-[1.5rem]">
+            {
+              product.salePrice ?
+                (
+                  <div className="flex gap-2">
+                    <h1 className="font-bold text-[1.5rem] leading-[1.4] line-through">
+                      ${product.price}
+                    </h1>
+                    <h1 className="text-red-500 font-bold text-[1.5rem] leading-[1.4]">
+                      ${product.salePrice}
+                    </h1>
+                  </div>
+                )
+                :
+                (
+                  <h1 className="font-bold text-[1.5rem] leading-[1.4]">
+                    ${product.price}
+                  </h1>
+                )
+            }
+          </div>
+
+          <div className="mb-[1.5rem] min-h-[72px]">
+            <p className="text-[1rem] leading-[1.4]">{product.description}</p>
+          </div>
+
           <div className="inline-flex gap-5 mb-[1.5rem] min-h-[72px]">
             <p className="text-[1rem] leading-[1.4]">
               <b>Category</b>:{" "} {product.category}
             </p>
             <p className="text-[1rem] leading-[1.4]">
-              <b>Tags</b>:{" "} {product.tags}
+              <b>Tags</b>:{" "} {product.tags.join(", ")}
             </p>
           </div>
-
         </div>
 
-        <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col gap-6 w-full max-w-[35rem]">
 
           <button
             className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -196,15 +195,12 @@ const ProductHeader = ({ product }: ProductProps) => {
 
           {wishlistButton}
 
+          <ProductNegotiation product={product} userId={session?.user?.id} />
+
         </div>
-
       </div>
-
-
-
     </section>
+  );
+};
 
-  )
-}
-
-export default ProductHeader
+export default ProductHeader;

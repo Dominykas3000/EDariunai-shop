@@ -77,7 +77,7 @@ const ProductReviews = (props: any) => {
 
   let submitForm = (
     <div className='w-full flex flex-col'>
-      {/* <h1>Write your own Review!</h1> */}
+      <h1 className='text-xl text-center mb-7'>Write your own Review!</h1>
       <FormSection className='mx-auto'>
 
         <form

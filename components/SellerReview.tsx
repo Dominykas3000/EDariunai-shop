@@ -78,7 +78,7 @@ const SellerReviews = (props: any) => {
 
   let submitForm = (
     <div className='mx-auto flex flex-col mt-20 w-auto '>
-      {/* <h1>Write your own Review!</h1> */}
+      <h1 className='text-xl text-center mb-7'>Write your own Review!</h1>
       <FormSection className='mx-auto'>
         <form
           onSubmit={formik.handleSubmit}

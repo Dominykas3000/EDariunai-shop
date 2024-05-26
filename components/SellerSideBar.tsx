@@ -18,6 +18,15 @@ export default function SellerSideBar() {
 
         <div>
           <Link
+            href="/seller/negotiations"
+            className="block text-gray-800 p-2 hover:border-b-2 border-gray-700 dark:text-white"
+          >
+            Negotiations
+          </Link>
+        </div>
+
+        <div>
+          <Link
             href="/seller/orders"
             className="block text-gray-800 p-2 hover:border-b-2 border-gray-700 dark:text-white"
           >
