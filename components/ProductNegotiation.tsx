@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useFormik } from 'formik';
 import { toast } from "sonner";
 
-
 interface Product {
   _id: string;
   name: string;
@@ -23,6 +22,7 @@ interface Seller {
   name: string;
   description: string;
 }
+
 interface ProductNegotiationProps {
   product: Product;
   userId: string | undefined;
@@ -43,7 +43,7 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
       body: JSON.stringify({
         negotiator: userId,
         item: product._id,
-        newPrice: formik.values.offerPrice,
+        newPrice: parseFloat(formik.values.offerPrice),
         comment: formik.values.offerComment
       })
     });
@@ -56,7 +56,6 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
       setSubmitting(false);
       handleCloseModal();
       toast.success('Offer submitted successfully');
-
     } else {
       setSubmitting(false);
       console.error('Error submitting offer:', data);
@@ -70,21 +69,25 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
     },
     validate: (values) => {
       const errors: any = {};
+      const offerPrice = parseFloat(values.offerPrice);
+
       if (!values.offerPrice) {
         errors.offerPrice = 'Required';
+      } else if (isNaN(offerPrice)) {
+        errors.offerPrice = 'Offer price must be a number';
+      } else if (offerPrice >= product.price) {
+        errors.offerPrice = `Offer price must be less than the current price of ${product.price} €`;
       }
 
       if (!values.offerComment) {
         errors.offerComment = 'Required';
-      }
-      else if (values.offerComment.length < 10) {
+      } else if (values.offerComment.length < 10) {
         errors.offerComment = 'Comment should be at least 10 characters!';
       }
       return errors;
     },
     onSubmit: onSubmit
   });
-
 
   const handleOpenModal = () => {
     document.body.style.overflow = 'hidden';
@@ -96,7 +99,6 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
     setIsModalOpen(false);
   };
 
-
   return (
     <>
       <button
@@ -106,7 +108,6 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
       >
         Offer New Price
       </button>
-
 
       {isModalOpen && (
         <div
@@ -118,7 +119,7 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
             onClick={handleCloseModal}
           ></div>
           <div
-            className="relative  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 mx-auto dark:bg-gray-800 z-10 w-96 "
+            className="relative p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 mx-auto dark:bg-gray-800 z-10 w-96"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -142,50 +143,43 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
             </button>
 
             <form onSubmit={formik.handleSubmit}>
-
               <div className="flex flex-col mb-4 pt-4">
-                <label htmlFor="offerPrice" className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
+                <label htmlFor="offerPrice" className="dark:text-white block mb-2 text-base font-medium text-gray-900">
                   New Price Offer
                 </label>
                 <input
                   type="number"
                   id="offerPrice"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400"
                   min="1"
                   step="0.01"
                   {...formik.getFieldProps('offerPrice')}
                 />
-                {
-                  formik.errors.offerPrice && formik.touched.offerPrice ?
-                    <div className='pt-3 text-red-500 text-sm'>{formik.errors.offerPrice}</div>
-                    :
-                    null
-                }
+                {formik.errors.offerPrice && formik.touched.offerPrice ? (
+                  <div className='pt-3 text-red-500 text-sm'>{formik.errors.offerPrice}</div>
+                ) : null}
               </div>
 
-              <div className="fex flex-col mb-4 pt-4">
-                <label htmlFor="offerComment" className="dark:text-white block mb-2 text-base font-medium text-gray-900 ">
+              <div className="flex flex-col mb-4 pt-4">
+                <label htmlFor="offerComment" className="dark:text-white block mb-2 text-base font-medium text-gray-900">
                   Comment
                 </label>
                 <textarea
                   id="offerComment"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5  dark:border-gray-500 dark:placeholder-gray-400 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400"
                   rows={4}
                   cols={50}
                   {...formik.getFieldProps('offerComment')}
                 ></textarea>
-                {
-                  formik.errors.offerComment && formik.touched.offerComment ?
-                    <div className='pt-3 text-red-500 text-sm'>{formik.errors.offerComment}</div>
-                    :
-                    null
-                }
+                {formik.errors.offerComment && formik.touched.offerComment ? (
+                  <div className='pt-3 text-red-500 text-sm'>{formik.errors.offerComment}</div>
+                ) : null}
               </div>
 
               <button
                 disabled={submitting}
                 type="submit"
-                className="w-full text-white bg-gray-900 hover:bg-gray-800  font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-cyan-900"
+                className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-cyan-900"
               >
                 Submit Offer
               </button>
@@ -194,7 +188,7 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default ProductNegotiation
+export default ProductNegotiation;
