@@ -14,6 +14,9 @@ import { ScrollArea } from "../ui/scroll-area";
 import { useCart } from "@/context/CartContext";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useSession } from 'next-auth/react';
+
+
 
 export function formatPrice(price: number): string {
   return price.toLocaleString("en-US", {
@@ -105,6 +108,8 @@ function CartItem({ item }: { item: any }) {
 export default function CartSidebar() {
   const { cartItems } = useCart();
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const { data: session } = useSession();
+  const buyer_id = session?.user?.id;
 
   const handleCheckout = () => {
     fetch("/api/checkoutsession", {
@@ -112,7 +117,7 @@ export default function CartSidebar() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cartItems }),
+      body: JSON.stringify({ items: cartItems, buyer_id: buyer_id}),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -147,9 +152,13 @@ export default function CartSidebar() {
             </ScrollArea>
           </div>
         )}
+        {buyer_id ? (
         <Button variant="default" size="sm" onClick={handleCheckout}>
           Checkout
         </Button>
+        ) : (
+          <span className="text-muted-foreground">Please log in to checkout</span>
+        )}
       </SheetContent>
     </Sheet>
   );

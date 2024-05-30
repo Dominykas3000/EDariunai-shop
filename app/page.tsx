@@ -8,6 +8,9 @@ export default function Home() {
   const [providers, setProviders] = useState<any | null>(null);
   const { data: session } = useSession();
   const isAdmin = session?.user?.privileges == "admin";
+  console.log("session", session?.user);
+  const isSeller = session?.user?.role == "seller";
+
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -71,6 +74,15 @@ export default function Home() {
           </div>
         ) : null}
         {/* <ProductList /> */}
+        {isSeller ? null : (
+          <div className="flex mt-4">
+            <Link href="/boughtitems">
+              <button className="w-full text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                View bought items!
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </section >
   );

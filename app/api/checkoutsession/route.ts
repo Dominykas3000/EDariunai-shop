@@ -8,7 +8,7 @@ export async function POST(req: any, res: any) {
     const origin  = req.headers.get("origin");
 
     const body = await req.json();
-    const { items } = body;
+    const { items, buyer_id } = body;
 
     if (!items) {
       return NextResponse.json({ message: 'Items are required' }, { status: 400 });
@@ -25,12 +25,22 @@ export async function POST(req: any, res: any) {
       quantity: item.quantity,
     }));
 
+    //construct query string
+    console.log("itesdfsfsdffsdms", JSON.stringify(items, null, 2))
+    let queryparams = "";
+    items.forEach((item: any) => {
+      queryparams = queryparams.concat(`&item_id=${item.product._id}&quantity=${item.quantity}&seller_id=${item.product.sellerId._id}`);
+    });
+
+    console.log("transformedItems", items);
     const session = await stripe.checkout.sessions.create({
       line_items: transformedItems,
       mode: 'payment',
-      success_url: `${origin}/success`,
+      success_url: `${origin}/success?buyer_id=${buyer_id}${queryparams}`,
       cancel_url: `${origin}/canceled`,
     });
+
+    //console.log("checkouturl", session);
 
     return NextResponse.json({ checkoutUrl: session.url });
   } catch (err: any) {

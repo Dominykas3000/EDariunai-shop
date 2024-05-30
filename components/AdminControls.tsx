@@ -12,7 +12,7 @@ const AdminControls = ({ sellerId }: { sellerId: any }) => {
 
   const { data: session } = useSession();
 
-  console.log(session);
+  console.log("admin session", session);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);

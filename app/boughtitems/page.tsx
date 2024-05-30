@@ -33,13 +33,13 @@ export default function Component() {
   const [orders, setOrders] = useState([]);
   
   useEffect(() => {
-    const sellerId = session?.user?.sellerId || "";
+    const userid = session?.user?.id || "";
 
-    if (sellerId) {
+    if (userid) {
       fetch(`/api/orders`, {
         method: "GET",
         headers: {
-          seller: sellerId,
+          buyer: userid,
         },
       })
         .then((response) => response.json())
@@ -51,7 +51,7 @@ export default function Component() {
           console.error("Error fetching orders:", error);
         });
     }
-  }, [session?.user?.sellerId]); // Dependency array, it only reruns if session changes
+  }, [session?.user?.id]); // Dependency array, it only reruns if session changes
 
   return (
     <Card className="mt-8">
