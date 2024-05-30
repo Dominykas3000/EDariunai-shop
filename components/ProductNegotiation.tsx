@@ -97,6 +97,7 @@ const ProductNegotiation = ({ product, userId }: ProductNegotiationProps) => {
   const handleCloseModal = () => {
     document.body.style.overflow = 'auto';
     setIsModalOpen(false);
+    formik.resetForm();
   };
 
   return (
