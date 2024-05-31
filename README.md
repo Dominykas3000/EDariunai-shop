@@ -27,7 +27,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Seller mode toggle:** Sellers can switch between seller and buyer modes.
 - [x] **Seller Item CRUD:** Sellers can manage their product listings with a CRUD system.
 - [x] **Sale price functionality:** Sellers can set sale prices for their items.
-- VALIDATIONS
+- [x] VALIDATIONS
 
 ## Iteration 2: Advanced Seller Features
 ### Tasks:
@@ -52,6 +52,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [x] **Freeze Account (Admin):** Administrators can freeze user accounts.
 - [x] **Delete Reviews (Admin):** Admins can manage reviews on the platform.
 - [x] **Flag Users (Admin):** Admins can flag users for further investigation.
-- [ ] **View Order History:** Users can track and review their order history.
+- [x] **View Order History:** Users can track and review their order history.
 - [x] **Items Categorization:** Products on the platform are categorized systematically.
 - [x] **Seller Statistics:** Sellers can access detailed statistics and analytics related to their store performance.
